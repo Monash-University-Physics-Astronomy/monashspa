@@ -1,0 +1,8 @@
+syntax: glob
+*.pyc
+docs/_build/*
+build/*
+dist/*
+monashspa.egg-info/*
+monashspa/__version__.py
+.vscode/*
