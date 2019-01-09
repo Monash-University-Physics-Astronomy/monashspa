@@ -16,4 +16,5 @@ Contents
 .. toctree::
    :maxdepth: 1
 
+   install
    PHS1011_reference
