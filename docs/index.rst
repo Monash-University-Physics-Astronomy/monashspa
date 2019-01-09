@@ -9,7 +9,7 @@ This Python library contains helpful Python functions and utilities that will be
 
 This documentation is not meant to replace your study resources for individual activities (which you can find on the `Monash LMS`_) but does document every function and every option available to use, which you might find useful as a reference.
 
-.. _`Monash LMS`: https://lms.monash.ed
+.. _`Monash LMS`: https://lms.monash.edu
 
 Contents
 ========
