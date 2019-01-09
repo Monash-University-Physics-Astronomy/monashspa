@@ -113,7 +113,7 @@ failed_tests = []
 
 for testfn in tests:
     result = testfn()
-    print('Result of "{test_name}" was {result}'.format(test_name=testfn.__doc__, result=result))
+    print('Result of "{test_name}" was {result}'.format(test_name=testfn.__doc__, result='success' if result else 'failure'))
 
     if not result:
         failed_tests.append(testfn)
