@@ -21,7 +21,7 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('.'))
 
-# import autoscrub version
+# import monashspa version
 from monashspa import __version__
 if __version__ is None:
     __version__ = 'None'
