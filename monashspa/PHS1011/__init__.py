@@ -15,4 +15,4 @@
 # You should have received a copy of the GNU General Public License
 # along with monashspa.  If not, see <http://www.gnu.org/licenses/>.
 
-from monashspa.common.fitting import linear_fit, create_y_from_linear_fit
+from monashspa.common.fitting import linear_fit, get_fit_parameters
