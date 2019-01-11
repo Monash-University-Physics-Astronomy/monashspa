@@ -19,7 +19,7 @@ import os
 from setuptools import setup, find_packages
 
 
-VERSION = '0.1.0'
+VERSION = '0.2.0'
 # Auto generate a __version__ package for the package to import
 with open(os.path.join('monashspa', '__version__.py'), 'w') as f:
     f.write("__version__ = '%s'\n" % VERSION)
@@ -36,6 +36,7 @@ setup(
                  'Programming Language :: Python :: 3.4',
                  'Programming Language :: Python :: 3.5',
                  'Programming Language :: Python :: 3.6',
+                 'Programming Language :: Python :: 3.7',
                  'Environment :: Console',
                  'Intended Audience :: Education',
                  'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',

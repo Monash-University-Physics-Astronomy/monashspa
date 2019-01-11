@@ -21,7 +21,7 @@ def test_basic_linear_fit():
     """Basic test of linear fit without uncertainties"""
 
     ### Get results ###
-    from monashspa.common.fitting import linear_fit
+    from monashspa.common.fitting import linear_fit, get_fit_parameters
 
     data = [
         [1,	2.97958155926148, 0.435952175570949],
@@ -33,16 +33,17 @@ def test_basic_linear_fit():
     ]
     data = np.array(data)
 
-    results = linear_fit(data[:,0], data[:,1], gradient_guess=0, intercept_guess=0)
+    fit_result = linear_fit(data[:,0], data[:,1])
+    results = get_fit_parameters(fit_result)
 
     ### Expected results ###
     expected_results = {
-        'gradient': 1.903875935,
-        'u_gradient': 0.045590672,
+        'slope': 1.903875935,
+        'u_slope': 0.045590672,
         'intercept': 1.011763758,
         'u_intercept': 0.177550159,
     }
-    precision = 2e-8
+    precision = 1e-7
 
     ### Check results match within precision ###
     #
@@ -67,7 +68,7 @@ def test_linear_fit_with_uncertainties():
     """Basic test of linear fit with uncertainties"""
 
     ### Get results ###
-    from monashspa.common.fitting import linear_fit
+    from monashspa.common.fitting import linear_fit, get_fit_parameters
 
     data = [
         [1,	2.97958155926148, 0.435952175570949],
@@ -79,16 +80,17 @@ def test_linear_fit_with_uncertainties():
     ]
     data = np.array(data)
 
-    results = linear_fit(data[:,0], data[:,1], u_y=data[:,2], gradient_guess=0, intercept_guess=0)
+    fit_result = linear_fit(data[:,0], data[:,1], u_y=data[:,2])
+    results = get_fit_parameters(fit_result)
 
     ### Expected results (from WFIT) ###
     expected_results = {
-        'gradient': 1.866046353,
-        'u_gradient': 0.064841588,
+        'slope': 1.866046353,
+        'u_slope': 0.064841588,
         'intercept': 1.124423955,
         'u_intercept': 0.387570521,
     }
-    precision = 1e-8
+    precision = 2e-8
 
     ### Check results match within precision ###
     #
