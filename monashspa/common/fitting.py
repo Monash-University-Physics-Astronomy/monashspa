@@ -92,14 +92,14 @@ def get_fit_parameters(fit_result):
     format. The format of the dictionary depends on the model used to perform
     the fit. For example, a linear fit would result in the following 
     dictionary:
-    .. code-block:: python
+        .. code-block:: python
 
-        parameters = {
-            'slope': <value>,
-            'u_slope': <value>,
-            'intercept': <value>,
-            'u_intercept': <value>,
-        }
+            parameters = {
+                'slope': <value>,
+                'u_slope': <value>,
+                'intercept': <value>,
+                'u_intercept': <value>,
+            }
 
 
     The parameter names always match those of the lmfit model, and the
