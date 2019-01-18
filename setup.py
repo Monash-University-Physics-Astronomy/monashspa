@@ -21,7 +21,7 @@ from setuptools import setup, find_packages
 # Define the current version of the library
 # Update this before building and publishing a new version
 # see https://semver.org/ for guidelines on how to modify the version string
-VERSION = '0.3.0'
+VERSION = '0.3.2'
 
 # get directory of setup.py and the rest of the code for the library
 code_dir = os.path.abspath(os.path.dirname(__file__))
@@ -30,9 +30,15 @@ code_dir = os.path.abspath(os.path.dirname(__file__))
 with open(os.path.join(code_dir, 'monashspa', '__version__.py'), 'w') as f:
     f.write("__version__ = '%s'\n" % VERSION)
 
-# Read in the readme file as the long description
-with open(os.path.join(code_dir, 'readme.md'), encoding='utf-8') as f:
-    long_description = f.read()
+# Work around the fact that the readme.md file doesn't exist for users installing
+# from the tar.gz format. However, in this case, they won't be uploading to PyPi
+# so they don't need it!
+try:
+    # Read in the readme file as the long description
+    with open(os.path.join(code_dir, 'readme.md')) as f:
+        long_description = f.read()
+except Exception:
+    long_description = ""
 
 setup(
     name='monashspa',
