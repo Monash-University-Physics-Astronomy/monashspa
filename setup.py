@@ -31,7 +31,7 @@ with open(os.path.join(code_dir, 'monashspa', '__version__.py'), 'w') as f:
     f.write("__version__ = '%s'\n" % VERSION)
 
 # Read in the readme file as the long description
-with open(os.path.join(code_dir, 'monashspa', 'readme.md'), encoding='utf-8') as f:
+with open(os.path.join(code_dir, 'readme.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
