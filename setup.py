@@ -18,17 +18,33 @@
 import os
 from setuptools import setup, find_packages
 
+# Define the current version of the library
+# Update this before building and publishing a new version
+# see https://semver.org/ for guidelines on how to modify the version string
+VERSION = '0.3.0'
 
-VERSION = '0.2.0'
-# Auto generate a __version__ package for the package to import
-with open(os.path.join('monashspa', '__version__.py'), 'w') as f:
+# get directory of setup.py and the rest of the code for the library
+code_dir = os.path.abspath(os.path.dirname(__file__))
+
+# Auto generate a __version__ file for the package to import
+with open(os.path.join(code_dir, 'monashspa', '__version__.py'), 'w') as f:
     f.write("__version__ = '%s'\n" % VERSION)
+
+# Read in the readme file as the long description
+with open(os.path.join(code_dir, 'monashspa', 'readme.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 setup(
     name='monashspa',
     version=VERSION,
     description='Library of useful data analysis tools for Monash University Physics & Astronomy students',
-    url='https://bitbucket.org/monashuniversityphysics/monashspa',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
+    url='https://monashspa.readthedocs.io',
+    project_urls={
+        "Documentation": "https://monashspa.readthedocs.io",
+        "Source Code": "https://bitbucket.org/monashuniversityphysics/monashspa",
+    },
     license='GPLv3',
     author='School of Physics & Astronomy, Monash University',
     classifiers=['Development Status :: 4 - Beta',
@@ -47,5 +63,7 @@ setup(
     include_package_data=True,
     install_requires=[
         'lmfit>=0.9.12,<1.0',
+        'requests>=2.21.0,<3',
+        'colorama>=0.4.1,<1',
     ],
 )
