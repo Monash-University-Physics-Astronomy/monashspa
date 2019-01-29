@@ -60,7 +60,9 @@ def __check_for_new_monashspa_version():
                 print(__colorise(colorama_enabled, "[monashspa:info] A new version of monashspa is available"))
                 print(__colorise(colorama_enabled, "[monashspa:info] You are running monashspa version: {}".format(__version__)))
                 print(__colorise(colorama_enabled, "[monashspa:info] The latest monashspa version is: {}".format(online_version)))
-                print(__colorise(colorama_enabled, "[monashspa:info] To upgrade, run: pip install -U monashspa"))
+                print(__colorise(colorama_enabled, "[monashspa:info] To upgrade, run: "))
+                print(__colorise(colorama_enabled, "[monashspa:info]     pip install -U monashspa"))
+                print(__colorise(colorama_enabled, "[monashspa:info] from a terminal or Anaconda Prompt (or see the install instructions at https://monashspa.readthedocs.io)"))
         
     except Exception:
         print(__colorise(colorama_enabled, "[monashspa:info] Unable to check if a newer version is available"))
