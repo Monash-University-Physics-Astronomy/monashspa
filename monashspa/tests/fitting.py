@@ -110,16 +110,22 @@ def test_linear_fit_with_uncertainties():
 
     return success
 
-tests = [test_basic_linear_fit, test_linear_fit_with_uncertainties]
-failed_tests = []
+def do_tests():
+    tests = [test_basic_linear_fit, test_linear_fit_with_uncertainties]
+    failed_tests = []
 
-for testfn in tests:
-    result = testfn()
-    print('Result of "{test_name}" was {result}'.format(test_name=testfn.__doc__, result='success' if result else 'failure'))
+    for testfn in tests:
+        result = testfn()
+        print('Result of "{test_name}" was {result}'.format(test_name=testfn.__doc__, result='success' if result else 'failure'))
 
-    if not result:
-        failed_tests.append(testfn)
+        if not result:
+            failed_tests.append(testfn)
 
-if failed_tests:
-    print('')
-    print('There were {num_failures:d} failed tests'.format(num_failures=len(failed_tests)))
+    if failed_tests:
+        print('')
+        print('There were {num_failures:d} failed fitting tests'.format(num_failures=len(failed_tests)))
+
+    return failed_tests
+
+if __name__ == "__main__":
+    do_tests()
