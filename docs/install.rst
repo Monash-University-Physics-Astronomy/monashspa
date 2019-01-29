@@ -8,7 +8,7 @@ These installation instructions assume you already have Python installed. If you
 ----
 PyPi
 ----
-We recommend installing `monashspa` from the Python Package Index. To do this, open a terminal (linux/OSX) or command prompt (Windows) window, and run::
+We recommend installing `monashspa` from the Python Package Index. To do this, open a terminal (linux/OSX) or command prompt (Windows) window (or if using Anaconda, an Anaconda Prompt), and run::
 
     pip install monashspa
     
@@ -16,7 +16,7 @@ We recommend installing `monashspa` from the Python Package Index. To do this, o
 Upgrading monashspa
 -------------------
 
-To upgrade to the latest version of `monashspa`, run::
+To upgrade to the latest version of `monashspa`, open a terminal (linux/OSX) or command prompt (Windows) window (or if using Anaconda, an Anaconda Prompt), and run::
 
     pip install -U monashspa
     
