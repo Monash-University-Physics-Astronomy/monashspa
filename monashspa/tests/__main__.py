@@ -21,7 +21,7 @@ if __name__ == "__main__":
     print("Python version:", sys.version)
     # print monashspa version
     import monashspa
-    print("Monash spa version:", monashspa.__version__)
+    print("monashspa version:", monashspa.__version__)
     # print numpy version
     import numpy
     print("numpy version:", numpy.__version__)
