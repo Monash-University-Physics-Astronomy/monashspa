@@ -16,3 +16,4 @@
 # along with monashspa.  If not, see <http://www.gnu.org/licenses/>.
 
 from monashspa.common.fitting import linear_fit, get_fit_parameters
+from monashspa.common.figures import savefig
