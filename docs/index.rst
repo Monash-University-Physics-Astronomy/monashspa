@@ -20,3 +20,4 @@ Contents
 
    install
    PHS1011_reference
+   PHS3000_reference
