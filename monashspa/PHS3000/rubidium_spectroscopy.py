@@ -19,7 +19,6 @@ import os
 
 import numpy as np
 import pandas
-import matplotlib.pyplot as plt
 import six
 
 def __matlab_round(val):
@@ -59,8 +58,7 @@ def read_rigol_csv(filepath):
     return X, time, CH1, CH2
 
 def extract_frequency(michelson_data, MHz_per_fringe, num_dc_terms_to_remove=1):
-    """Returns a frequency calibration determined from Michelson interferometer
-     data
+    """Returns a frequency calibration determined from Michelson interferometer data
     
     Performs a Hilbert transform (minus the DC term) on the Michelson
     interferometer data and scales the resultant frequency array by the
