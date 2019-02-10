@@ -10,6 +10,7 @@ Submodules
    :maxdepth: 1
 
    PHS3000_rb_reference
+   PHS3000_optical_tweezers_reference
 
 
 General purpose functions

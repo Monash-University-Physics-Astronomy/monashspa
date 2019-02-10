@@ -37,8 +37,11 @@ if __name__ == "__main__":
     
     failed_tests = []
     
-    import monashspa.tests.fitting as fitting
+    from . import fitting
     failed_tests.extend(fitting.do_tests())
+
+    from .PHS3000 import optical_tweezers
+    failed_tests.extend(optical_tweezers.do_tests())
 
     print()
     print("Tests complete.")
