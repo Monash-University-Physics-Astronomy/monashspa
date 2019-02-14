@@ -73,6 +73,6 @@ setup(
         'colorama>=0.4.1,<1',
         'pandas>=0.22,<1',
         'six',
-        #TODO: scikit-image, 
+        'piradon',
     ],
 )

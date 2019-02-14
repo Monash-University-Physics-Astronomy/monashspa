@@ -9,8 +9,9 @@ Submodules
 .. toctree::
    :maxdepth: 1
 
-   PHS3000_rb_reference
    PHS3000_optical_tweezers_reference
+   PHS3000_rb_reference
+   PHS3000_PET_reference
 
 
 General purpose functions

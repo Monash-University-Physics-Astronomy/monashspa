@@ -15,15 +15,48 @@
 # You should have received a copy of the GNU General Public License
 # along with monashspa.  If not, see <http://www.gnu.org/licenses/>.
 
+from __future__ import division
+
 import os
 
 import numpy as np
 import pandas
-from skimage.transform import iradon
 import matplotlib.pyplot as plt
+from piradon import iradon as __iradon
 
-def pet_rebuild(filepath, filter_name=None, npoints=None):
-    """TODO: write this"""
+def pet_rebuild(filepath, filter_name=None, npoints=None, call_show=True):
+    """Perform inverse radon transform on acquired PET data and plots results
+
+    Arguments:
+        filepath: A string containing the path to the txt file containing the 
+                  PET data
+    
+    Keyword Arguments:
+        filter_name: A string containing the name of the filter to use during
+                     reconstruction. Defaults to :code:`None` (no
+                     reconstruction). Options are:
+                        None: don't reconstruct
+                        'none': Reconstruct with no filter
+                        'ramp': Reconstruct using the Ram-Lak filter
+                        'Shepp-Logan': Reconstruct using the Shepp-Logan filter
+                        'cosine': Reconstruct using the cosine filter
+                        'hamming': Reconstruct using the hamming filter
+                        'hann': Reconstruct using the hann filter
+
+        npoints: The number of points to reconstruct
+
+        call_show: Whether to call :code:`matplotlib.pyplot.show()` at the end
+                   of the function (prior to returning). Defaults to :code:`True`.
+                   Set this to :code:`False` if you are not using Spyder/IPython
+                   and wish your entire script to complete before showing any 
+                   plots. Note, you will need to explicitly call 
+                   :code:`matplotlib.pyplot.show()` if you set this to :code:`False`. 
+    
+    Returns:
+        A 2D numpy array containing the coincidence counts (rows correspond to
+        each linear stage position and columns to each rotation stage position)
+
+    """
 
     # TODO: consider replacing with our own csv reading wrapper
     df = pandas.read_csv(filepath, skiprows=1, sep=',\t', engine='python', parse_dates=[0])
@@ -45,26 +78,27 @@ def pet_rebuild(filepath, filter_name=None, npoints=None):
     #       Python. See: https://docs.scipy.org/doc/numpy-1.15.0/user/numpy-for-matlab-users.html#notes
     coincidence_counts.shape = (len(unique_positions), len(unique_angles))
 
-    plt.figure(1)
+    plt.figure()
     plt.imshow(coincidence_counts, extent=[np.min(unique_angles), np.max(unique_angles), np.max(unique_positions), np.min(unique_positions)], interpolation='none')
     plt.xlabel(r'$\theta$')
     plt.ylabel('x')
     plt.title('Sinogram of {filename}'.format(filename=os.path.basename(filepath)))
 
-
     # do the inverse transform
     if filter_name is not None:
+        if npoints is None:
+            raise RuntimeError('When calling pet_rebuild with a filter, you must specify the number of points to reconstruct')
+
         # convert string none to actual None
         if filter_name == 'none':
             filter_name = None
-        inverse = iradon(coincidence_counts, unique_angles, output_size=npoints, filter=filter_name, interpolation='linear')
+        inverse = __iradon(coincidence_counts, unique_angles, output_size=npoints, filter=filter_name, interpolation='linear', circle=False)
 
-        plt.figure(2)
+        plt.figure()
         plt.imshow(inverse, extent=[0, 1, 0, 1], interpolation='none')
         plt.title('Reconstruction of {filename}'.format(filename=os.path.basename(filepath)))
-        # print(inverse.shape)
-        # print(inverse)
 
-    plt.show()
+    if call_show:
+        plt.show()
 
     return coincidence_counts
