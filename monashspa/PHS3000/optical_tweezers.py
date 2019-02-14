@@ -97,7 +97,7 @@ def ps_load(filepath):
 
     return f, psx, psy
 
-def cf_linearised(f, ps, initial_fc, call_show = True, figure_offset = 0):
+def cf_linearised(f, ps, initial_fc, call_show = True):
     r"""Finds the corner frequency value for a lorentzian power spectrum
 
     Finds the corner frequency (:math:`f_c`) of a power spectrum of the form:
@@ -119,18 +119,6 @@ def cf_linearised(f, ps, initial_fc, call_show = True, figure_offset = 0):
                    and wish your entire script to complete before showing any 
                    plots. Note, you will need to explicitly call 
                    :code:`matplotlib.pyplot.show()` if you set this to :code:`False`.
-
-        figure_offset: An integer which influences the number passed to calls 
-                       to :code:`matplotlib.pyplot.figure()`. This allows you
-                       to make multiple calls to this function and have each one
-                       appear on a separate plot. Note that this function 
-                       produces two figures, so sequential calls to this 
-                       function should increment :code:`figure_offset` by two.
-                       If you wish to save these figures after calling this
-                       function, call (from your main script)
-                       :code:`figure(figure_offset)` followed by 
-                       :code:`savefig()` (with appropriate arguments) and then
-                       repeat for :code:`figure_offset+1`. Defaults to 0.
     
     Returns:
         The best estimate for the corner frequency :math:`f_c`.
@@ -138,7 +126,7 @@ def cf_linearised(f, ps, initial_fc, call_show = True, figure_offset = 0):
     """
     y = np.log(ps)
 
-    plt.figure(figure_offset+1)
+    plt.figure()
     plt.loglog(f,ps)
     plt.title('Power spectrum')
     plt.xlabel('Frequency (Hz)')
@@ -155,7 +143,7 @@ def cf_linearised(f, ps, initial_fc, call_show = True, figure_offset = 0):
     result = lmfit.minimize(__cf_linearised_search, params, method='nelder', args=(f,y))
     fc = result.params['fc'].value
 
-    plt.figure(figure_offset+2)
+    plt.figure()
     plt.semilogy(np.log(fc**2+f**2), ps)
     plt.title('Linearised Power Spectrum Analysis')
     plt.xlabel(r'$f_0^2+f^2$ ($Hz^2$)')
