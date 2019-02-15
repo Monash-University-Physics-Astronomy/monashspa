@@ -13,6 +13,7 @@ Submodules
    PHS3000_muon_reference
    PHS3000_reflex_klystron_reference
    PHS3000_rb_reference
+   PHS3000_resistivity_germanium
    PHS3000_PET_reference
 
 
