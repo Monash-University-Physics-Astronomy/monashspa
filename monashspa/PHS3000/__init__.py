@@ -20,8 +20,11 @@ from monashspa.common.fitting import linear_fit, get_fit_parameters, make_lmfit_
 from monashspa.common.figures import savefig
 from monashspa.common.admca import read_mca_file
 
-from . import rubidium_spectroscopy
-from . import PET
 from . import optical_tweezers
 from . import muon
+from . import reflex_klystron
+from . import rubidium_spectroscopy
+from . import resistivity_germanium
+from . import microwave_transmission
+from . import PET
 from . import tutorials
