@@ -19,6 +19,7 @@
 from monashspa.common.fitting import linear_fit, get_fit_parameters, make_lmfit_model, model_fit
 from monashspa.common.figures import savefig
 from monashspa.common.admca import read_mca_file
+from monashspa.common.picoscope import read_picoscope_csv
 
 from . import optical_tweezers
 from . import muon
