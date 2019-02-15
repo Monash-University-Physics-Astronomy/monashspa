@@ -15,6 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with monashspa.  If not, see <http://www.gnu.org/licenses/>.
 
-from . import rubidium_spectroscopy
+
 from monashspa.common.fitting import linear_fit, get_fit_parameters, make_lmfit_model, model_fit
 from monashspa.common.figures import savefig
+from monashspa.common.admca import read_mca_file
+
+from . import rubidium_spectroscopy
+from . import PET
+from . import optical_tweezers
+from . import muon
+from . import tutorials
