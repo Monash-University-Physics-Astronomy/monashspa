@@ -20,6 +20,7 @@ import random
 import lmfit
 from lmfit.models import LinearModel
 import numpy as np
+# from warnings import warn
 
 class MonashSPAFittingException(Exception):
     pass
@@ -62,6 +63,18 @@ def model_fit(model, parameters, x, y, u_y=None, **kwargs):
 
         if 'scale_covar' not in kwargs:
             kwargs['scale_covar'] = False
+
+    # if 'nan_policy' not in kwargs:
+    #     kwargs['nan_policy'] = 'omit'
+
+    #     # warn if there are any nans!
+    #     to_check = [('x', x), ('y', y)]
+    #     if u_y is not None:
+    #         to_check.append(('u_y',u_y))
+    #     for name, arr in to_check:
+    #         if np.isnan(arr).any():
+    #             warn('The {name} array contains at least one NaN. These data points will be ignored when performing the fit. This may cause problems when plotting the line of best fit (you will need to remove the corresponding point in all arrays).'.format(name=name))
+
 
     fit_result = model.fit(y, parameters, x=x, weights=u_y, **kwargs)
 
@@ -262,6 +275,21 @@ def make_lmfit_model(expression, independent_vars=None, **kwargs):
         try:
             code = compile(expression, '<string>', 'eval')
             eval(code, sandbox)
+        except TypeError:
+            params = sandbox.stop_trace()
+
+            problem_param = None
+            if params_to_randomise is not None:
+                if params_to_randomise[-1] not in independent_vars:
+                    problem_param = params_to_randomise[-1]
+            if problem_param is None:
+                for param in params:
+                    if param not in params_to_randomise:
+                        problem_param = param
+            if problem_param is None:
+                problem_param = "[Could not determine the parameter name]"
+
+            raise RuntimeError('Error occurred while evaluating the model function. The problem is likely with the use of "{var}" which is either an unknown function or a parameter that cannot be set to a floating point number.'.format(var=problem_param))
         except Exception:
             # An exception was raised! This is either because:
             #   We found a new parameter name (great!)
