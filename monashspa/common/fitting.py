@@ -215,7 +215,8 @@ def make_lmfit_model(expression, independent_vars=None, **kwargs):
     specified. All other variables are assumed to be parameters you wish
     the fitting routine to optimise.
 
-    Standard numpy functions are also available for use in your expression.
+    Standard numpy and scipy.special functions are also available for use 
+    in your expression.
     For example, this is also a valid expression: :code:`"sin(x)+c"`.
 
     The expression must always be valid Python code, and must be able to 
@@ -343,5 +344,10 @@ def make_lmfit_model(expression, independent_vars=None, **kwargs):
     return model
 
 def __model_sandbox_imports(sandbox):
+    # scipy functions
+    exec('from scipy.special import *', sandbox, sandbox)
+    exec('import scipy.special', sandbox, sandbox)
+    # numpy functions (will overwrite some scipy in global namespace)
+    # but the scipy ones will also be available through scipy.special.<function>
     exec('from numpy import *', sandbox, sandbox)
     exec('import numpy as np', sandbox, sandbox)
