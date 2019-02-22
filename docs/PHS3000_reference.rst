@@ -14,6 +14,7 @@ Submodules
    PHS3000_reflex_klystron_reference
    PHS3000_rb_reference
    PHS3000_holes_in_ge
+   PHS3000_thermoelectricity
    PHS3000_resistivity_germanium_reference
    PHS3000_microwave_transmission_reference
    PHS3000_PET_reference
