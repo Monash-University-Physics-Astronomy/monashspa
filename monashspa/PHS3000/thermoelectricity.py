@@ -25,7 +25,7 @@ def read_data(filepath):
         filepath: The path to the .csv file
 
     Returns:
-        A 2D numpy array containing the data from the file, with columns: 
+        A 2D numpy array containing the data from the file, with columns
         date-time, delta_t from row 0, T_Cold, T_Hot, T_Case, I_Heat, V_Heat,
         I_Pelt, V_Pelt, respectively.
 
@@ -47,5 +47,5 @@ def read_data(filepath):
 
     # insert the timedelta column at column 1
     arr = np.insert(arr, 1, time_delta, axis=1)
-    
+
     return arr
