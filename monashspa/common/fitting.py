@@ -74,9 +74,26 @@ def model_fit(model, parameters, x, y, u_y=None, **kwargs):
     #     for name, arr in to_check:
     #         if np.isnan(arr).any():
     #             warn('The {name} array contains at least one NaN. These data points will be ignored when performing the fit. This may cause problems when plotting the line of best fit (you will need to remove the corresponding point in all arrays).'.format(name=name))
+    
+    # find number of independent vars that are not in kwargs already
+    missing_vars = []
+    for var in model.independent_vars:
+        if var not in kwargs:
+            missing_vars.append(var)
+    if len(missing_vars) > 1:
+        raise MonashSPAFittingException('You have not passed in all of your independent variables as keyword arguments')
+    elif len(missing_vars) == 0:
+        x_included = False
+        for var in model.independent_vars:
+            if kwargs[var] == x:
+                x_included = True
+                break
+        if not x_included:
+            raise MonashSPAFittingException('You have passed in a value for the argument "x" but it is apparently not an independent arg of your model.')
+    elif len(missing_vars) == 1:
+        kwargs[missing_vars[0]] = x 
 
-
-    fit_result = model.fit(y, parameters, x=x, weights=u_y, **kwargs)
+    fit_result = model.fit(y, parameters, weights=u_y, **kwargs)
 
     return fit_result
 
