@@ -36,3 +36,31 @@ def read_data(filepath):
     arr = df.to_numpy()
 
     return arr
+
+#: The modified Fermi function, :math:`G`, for :math:`Z=55`.
+#: Here, the first column corresponds to momentum, :math:`p`, in relativistic 
+#: units of :math:`m_0 c^2` and the second column cooresponds to the value of
+#: the modified Fermi function :math:`G`.
+modified_fermi_function_data = np.array([
+    [0.0, 6.591],
+    [0.1, 6.582],
+    [0.2, 6.552],
+    [0.3, 6.506],
+    [0.4, 6.448],
+    [0.5, 6.387],
+    [0.6, 6.329],
+    [0.7, 6.275],
+    [0.8, 6.224],
+    [0.9, 6.177],
+    [1.0, 6.132],
+    [1.2, 6.046],
+    [1.4, 5.964],
+    [1.6, 5.886],
+    [1.8, 5.812],
+    [2.0, 5.742],
+    [2.2, 5.675],
+    [2.4, 5.612],
+    [2.6, 5.553],
+    [2.8, 5.496],
+    [3.0, 5.443],
+])
