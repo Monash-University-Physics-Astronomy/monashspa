@@ -25,3 +25,5 @@ To upgrade to a specific version of `monashspa` (or, alternatively, if you wish 
     pip install -U monashspa==<version>
     
 where :code:`<version>` is replaced by the version you wish (for example :code:`pip install -U monashspa==0.1.0`).
+
+.. note:: After upgrading, you will need to **restart** any open Python or IPython terminals in order to ensure you are using the new version. This includes terminals within Spyder (restart the entire Spyder application if you are unsure how to restart a terminal). You can check which version of monashspa you are using by running :code:`import monashspa` followed by :code:`print(monashspa.__version__)` from with a Python script or terminal.
