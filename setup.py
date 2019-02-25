@@ -21,7 +21,7 @@ from setuptools import setup, find_packages
 # Define the current version of the library
 # Update this before building and publishing a new version
 # see https://semver.org/ for guidelines on how to modify the version string
-VERSION = '0.7.0'
+VERSION = '1.0.0'
 
 # get directory of setup.py and the rest of the code for the library
 code_dir = os.path.abspath(os.path.dirname(__file__))
@@ -53,7 +53,7 @@ setup(
     },
     license='GPLv3',
     author='School of Physics & Astronomy, Monash University',
-    classifiers=['Development Status :: 4 - Beta',
+    classifiers=['Development Status :: 5 - Production/Stable',
                  'Programming Language :: Python :: 2.7',
                  'Programming Language :: Python :: 3.4',
                  'Programming Language :: Python :: 3.5',
@@ -63,6 +63,7 @@ setup(
                  'Intended Audience :: Education',
                  'License :: OSI Approved :: GNU General Public License v3 (GPLv3)',
                  'Natural Language :: English',
+                 'Operating System :: OS Independent',
                 ],
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4',
     packages=find_packages(),
