@@ -23,11 +23,6 @@ def test_k_trap_theory():
     ### Get results ###
     from monashspa.PHS3000 import optical_tweezers as op
 
-    # f,psx,psy = op.ps_load(r'Example data\1\40mA.lvm')
-    # fc1=op.cf_linearised(f,psx,100, show_plots=False)
-    # fc2=op.cf_linearised(f,psy,100)
-    # print(fc1, fc2)
-
     result = op.trap_k_theory(1.5e-6, 3.2e-7, (1.58**2/1.33**2-1), 3, 5251802272)
     expected_result = 2.6373474496644467e-06
     precision = 1e-12
@@ -38,8 +33,43 @@ def test_k_trap_theory():
 
     return success
 
+def test_k_trap_theory_array():
+    """Test of PHS3000 optical tweezers function k_trap_theory with array input for r"""
+
+    ### Get results ###
+    from monashspa.PHS3000 import optical_tweezers as op
+
+    r = np.array([1.5e-6, 2e-6, 3.1e-6])
+    result = op.trap_k_theory(r, 3.2e-7, (1.58**2/1.33**2-1), 3, 5251802272)
+    expected_result = np.array([2.6373474496644467e-06, 7.146758330328241e-07, 2.1117891093096543e-08])
+    precision = 1e-12
+
+    success = expected_result.shape == result.shape
+    if not np.all(np.isclose(expected_result, result, atol=precision)):
+        success = False
+
+    return success
+
+def test_k_trap_theory_array_multiple():
+    """Test of PHS3000 optical tweezers function k_trap_theory with array input for r and w"""
+
+    ### Get results ###
+    from monashspa.PHS3000 import optical_tweezers as op
+
+    r = np.array([1.5e-6, 2e-6, 3.1e-6])
+    w = np.array([3.2e-7, 2e-7, 8e-7])
+    result = op.trap_k_theory(r, w, (1.58**2/1.33**2-1), 3, 5251802272)
+    expected_result = np.array([2.6373474496644467e-06, 9.069896532126502e-09, 1.2885130290016302e-05])
+    precision = 1e-12
+
+    success = expected_result.shape == result.shape
+    if not np.all(np.isclose(expected_result, result, atol=precision)):
+        success = False
+
+    return success
+
 def do_tests():
-    tests = [test_k_trap_theory, ]
+    tests = [test_k_trap_theory, test_k_trap_theory_array, test_k_trap_theory_array_multiple]
     failed_tests = []
 
     for testfn in tests:
