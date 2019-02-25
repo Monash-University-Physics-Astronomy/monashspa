@@ -35,6 +35,10 @@ def trap_k_theory(r, w, alpha, eccentricity, I):
         :math:`k=\alpha\,I_0\,\omega\,\frac{2\,\pi\,\epsilon^3}{c\,\xi^3}\left(\sqrt{\frac{\pi}{2}}\,\left(\left(\frac{\xi\,a}{\epsilon}\right)^2-1\right)\,\mathrm{exp}\left[-\frac{a^2}{2}\right]\,\mathrm{erf}\left[\frac{\xi\,a}{\sqrt{2}\,\epsilon}\right]+\frac{\xi\,a}{\epsilon}\,\mathrm{exp}\left[-\frac{a^2}{2\,\epsilon^2}\right]\right)`
     from `Bechhoefer 2002`_.
 
+    If the input arguments are numpy arrays, then the output will also be an
+    array of the appropriate dimension. Otherwise a single number will be 
+    returned.
+
     Arguments:
         r: Sphere radius (m)
         w: The :math:`1/e^2` radius (beam waist) of the trapping beam (m)
@@ -69,7 +73,10 @@ def trap_k_theory(r, w, alpha, eccentricity, I):
 
     # if the imaginary component is 0 (which it should be), then return only
     # the real component. Otherwise, return the whole complex number
-    return k.real if k.imag == 0 else k
+    if isinstance(k, np.ndarray):
+        return np.real_if_close(k)
+    else:
+        return k.real if k.imag == 0 else k
 
 def ps_load(filepath):
     """Imports the power spectrum data from optical tweezers file
