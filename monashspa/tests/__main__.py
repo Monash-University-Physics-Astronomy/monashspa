@@ -40,6 +40,9 @@ if __name__ == "__main__":
     from . import fitting
     failed_tests.extend(fitting.do_tests())
 
+    from .PHS2061 import fitting_tutorial
+    failed_tests.extend(fitting_tutorial.do_tests())
+
     from .PHS3000 import optical_tweezers
     failed_tests.extend(optical_tweezers.do_tests())
 

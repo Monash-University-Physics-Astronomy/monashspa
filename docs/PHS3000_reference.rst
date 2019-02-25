@@ -9,15 +9,16 @@ Submodules
 .. toctree::
    :maxdepth: 1
 
-   PHS3000_optical_tweezers_reference
-   PHS3000_muon_reference
-   PHS3000_reflex_klystron_reference
-   PHS3000_rb_reference
-   PHS3000_holes_in_ge
-   PHS3000_thermoelectricity
-   PHS3000_resistivity_germanium_reference
-   PHS3000_microwave_transmission_reference
-   PHS3000_PET_reference
+   PHS3000/optical_tweezers_reference
+   PHS3000/muon_reference
+   PHS3000/reflex_klystron_reference
+   PHS3000/rb_reference
+   PHS3000/holes_in_ge
+   PHS3000/thermoelectricity
+   PHS3000/resistivity_germanium_reference
+   PHS3000/microwave_transmission_reference
+   PHS3000/betaray
+   PHS3000/PET_reference
 
 
 General purpose functions
