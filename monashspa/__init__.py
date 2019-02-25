@@ -24,7 +24,7 @@ except ImportError:
 
 def __colorise(enable, text):
     if enable:
-        text = "\033[31m" +text + "\033[0m"
+        text = "\033[31;1m" +text+ "\033[0m"
     return text
 
 def __check_for_new_monashspa_version():
@@ -85,6 +85,7 @@ def __check_for_new_monashspa_version():
                 print(__colorise(colorama_enabled, "[monashspa:info] To upgrade, run: "))
                 print(__colorise(colorama_enabled, "[monashspa:info]     pip install -U monashspa"))
                 print(__colorise(colorama_enabled, "[monashspa:info] from a terminal or Anaconda Prompt (or see the install instructions at https://monashspa.readthedocs.io)"))
+                print(__colorise(colorama_enabled, "[monashspa:info] You will need to restart your open Python/IPython/Spyder application after upgrading to use the new version."))
         
     except Exception:
         print(__colorise(colorama_enabled, "[monashspa:info] Unable to check if a newer version is available"))
