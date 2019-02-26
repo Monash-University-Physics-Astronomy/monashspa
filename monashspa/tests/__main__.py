@@ -31,6 +31,12 @@ if __name__ == "__main__":
     # print lmfit version
     import lmfit
     print("lmfit version:", lmfit.__version__)
+    # print scipy version
+    import scipy
+    print("scipy version:", scipy.__version__)
+    # print pandas version
+    import pandas
+    print("pandas version:", pandas.__version__)
 
     print()
     print("Running tests now...")

@@ -88,5 +88,5 @@ def extract_frequency(michelson_data, MHz_per_fringe, num_dc_terms_to_remove=1):
     subffty = np.zeros(michelson_data.shape, dtype=np.complex128)
     subffty[__matlab_round(num_dc_terms_to_remove):__matlab_round(len(michelson_data)/2)+1] = ffty[__matlab_round(num_dc_terms_to_remove):__matlab_round(len(michelson_data)/2)+1]
     back = np.fft.ifft(subffty)
-    return np.unwrap(np.angle(back))/(2*np.pi)*MHz_per_fringe, back
+    return np.unwrap(np.angle(back))/(2*np.pi)*MHz_per_fringe
     
