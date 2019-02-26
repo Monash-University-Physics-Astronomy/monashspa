@@ -21,7 +21,7 @@ from setuptools import setup, find_packages
 # Define the current version of the library
 # Update this before building and publishing a new version
 # see https://semver.org/ for guidelines on how to modify the version string
-VERSION = '1.0.4'
+VERSION = '1.0.5'
 
 # get directory of setup.py and the rest of the code for the library
 code_dir = os.path.abspath(os.path.dirname(__file__))
@@ -69,6 +69,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
+        'numpy>=1.15',
         'lmfit>=0.9.12,<1.0',
         'requests>=2.21.0,<3',
         'colorama>=0.4.1,<1',
