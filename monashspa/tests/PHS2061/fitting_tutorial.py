@@ -47,7 +47,7 @@ def nonlinear_fit():
         'halflife': 138.49703455557113,
         'u_halflife': 4.38357646646529,
     }
-    precision = 1e-7
+    precision = 2e-7
     
     ### Check results match within precision ###
     success = compare_dictionary(results, expected_results, precision)
@@ -82,7 +82,7 @@ def nonlinear_fit_with_independent_as_t():
         'halflife': 138.49703455557113,
         'u_halflife': 4.38357646646529,
     }
-    precision = 1e-7
+    precision = 2e-7
 
     ### Check results match within precision ###
     success = compare_dictionary(results, expected_results, precision)
