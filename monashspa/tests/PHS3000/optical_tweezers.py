@@ -30,6 +30,11 @@ def test_k_trap_theory():
     success = True
     if np.abs(result-expected_result) > precision:
         success = False
+    if not success:
+        print(' '*8 + 'Value is not within tolerance.')
+        print(' '*(8+4) + 'Expected value: {}'.format(expected_result))
+        print(' '*(8+4) + 'Actual value: {}'.format(result))
+        print(' '*(8+4) + 'Tolerance: {}'.format(precision))
 
     return success
 
@@ -47,6 +52,11 @@ def test_k_trap_theory_array():
     success = expected_result.shape == result.shape
     if not np.all(np.isclose(expected_result, result, atol=precision)):
         success = False
+    if not success:
+        print(' '*8 + 'Values are not within tolerance.')
+        print(' '*(8+4) + 'Expected value: {}'.format(expected_result))
+        print(' '*(8+4) + 'Actual value: {}'.format(result))
+        print(' '*(8+4) + 'Tolerance: {}'.format(precision))
 
     return success
 
@@ -65,23 +75,31 @@ def test_k_trap_theory_array_multiple():
     success = expected_result.shape == result.shape
     if not np.all(np.isclose(expected_result, result, atol=precision)):
         success = False
+    if not success:
+        print(' '*8 + 'Values are not within tolerance.')
+        print(' '*(8+4) + 'Expected value: {}'.format(expected_result))
+        print(' '*(8+4) + 'Actual value: {}'.format(result))
+        print(' '*(8+4) + 'Tolerance: {}'.format(precision))
 
     return success
 
 def do_tests():
     tests = [test_k_trap_theory, test_k_trap_theory_array, test_k_trap_theory_array_multiple]
     failed_tests = []
+    print('Running PHS3000 optical tweezers tests...')
 
     for testfn in tests:
+        print('    Running test "{test_name}":'.format(test_name=testfn.__doc__))
         result = testfn()
-        print('Result of "{test_name}" was {result}'.format(test_name=testfn.__doc__, result='success' if result else 'failure'))
+        print('        Result: {result}'.format(result='success' if result else 'failure'))
 
         if not result:
             failed_tests.append(testfn)
 
     if failed_tests:
         print('')
-        print('There were {num_failures:d} failed fitting tests'.format(num_failures=len(failed_tests)))
+        print('    There were {num_failures:d} failed PHS3000 optical tweezers tests'.format(num_failures=len(failed_tests)))
+    print('')
 
     return failed_tests
 

@@ -17,6 +17,8 @@
 
 import numpy as np
 
+from .testing_helpers import compare_dictionary
+
 def test_basic_linear_fit():
     """Basic test of linear fit without uncertainties"""
 
@@ -46,20 +48,7 @@ def test_basic_linear_fit():
     precision = 1e-7
 
     ### Check results match within precision ###
-    #
-    # check same number of results returned as expected
-    success = len(expected_results) == len(results)
-    
-    # iterate over every result
-    for k,v in results.items():
-        # check key names match
-        if k not in expected_results:
-            success = False
-            break
-        # Check result is within tolerance to expected value
-        if np.abs(expected_results[k] - v) > precision:
-            success = False
-            break
+    success = compare_dictionary(results, expected_results, precision)
 
     return success
 
@@ -93,37 +82,28 @@ def test_linear_fit_with_uncertainties():
     precision = 2e-8
 
     ### Check results match within precision ###
-    #
-    # check same number of results returned as expected
-    success = len(expected_results) == len(results)
-
-    # iterate over every result
-    for k,v in results.items():
-        # check key names match
-        if k not in expected_results:
-            success = False
-            break
-        # Check result is within tolerance to expected value
-        if np.abs(expected_results[k] - v) > precision:
-            success = False
-            break
+    success = compare_dictionary(results, expected_results, precision)
 
     return success
 
 def do_tests():
     tests = [test_basic_linear_fit, test_linear_fit_with_uncertainties]
     failed_tests = []
+    print('Running common fitting tests...')
 
     for testfn in tests:
+        print('    Running test "{test_name}":'.format(test_name=testfn.__doc__))
         result = testfn()
-        print('Result of "{test_name}" was {result}'.format(test_name=testfn.__doc__, result='success' if result else 'failure'))
+        print('        Result: {result}'.format(result='success' if result else 'failure'))
 
         if not result:
             failed_tests.append(testfn)
 
     if failed_tests:
         print('')
-        print('There were {num_failures:d} failed fitting tests'.format(num_failures=len(failed_tests)))
+        print('    There were {num_failures:d} failed common fitting tests'.format(num_failures=len(failed_tests)))
+        
+    print('')
 
     return failed_tests
 
