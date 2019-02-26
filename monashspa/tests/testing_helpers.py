@@ -34,6 +34,7 @@ def compare_dictionary(results, expected_results, tolerance, indent=8):
             print(' '*(indent+4) + 'Expected value: {}'.format(expected_results[k]))
             print(' '*(indent+4) + 'Actual value: {}'.format(v))
             print(' '*(indent+4) + 'Tolerance: {}'.format(tolerance))
+            print(' '*(indent+4) + 'Difference: {}'.format(np.abs(expected_results[k] - v)))
 
     # this check technically isn't needed because we compare length and check if
     # all of one is in the other, however this allows us to provide more useful
