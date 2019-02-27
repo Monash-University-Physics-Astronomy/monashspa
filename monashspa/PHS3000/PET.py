@@ -35,13 +35,13 @@ def pet_rebuild(filepath, filter_name=None, npoints=None, call_show=True):
         filter_name: A string containing the name of the filter to use during
                      reconstruction. Defaults to :code:`None` (no
                      reconstruction). Options are:
-                        None: don't reconstruct
-                        'none': Reconstruct with no filter
-                        'ramp': Reconstruct using the Ram-Lak filter
-                        'Shepp-Logan': Reconstruct using the Shepp-Logan filter
-                        'cosine': Reconstruct using the cosine filter
-                        'hamming': Reconstruct using the hamming filter
-                        'hann': Reconstruct using the hann filter
+                        - None: don't reconstruct
+                        - 'none': Reconstruct with no filter
+                        - 'ramp': Reconstruct using the Ram-Lak filter
+                        - 'Shepp-Logan': Reconstruct using the Shepp-Logan filter
+                        - 'cosine': Reconstruct using the cosine filter
+                        - 'hamming': Reconstruct using the hamming filter
+                        - 'hann': Reconstruct using the hann filter
 
         npoints: The number of points to reconstruct
 
