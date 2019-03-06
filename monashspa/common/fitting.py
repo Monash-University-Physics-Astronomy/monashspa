@@ -216,6 +216,8 @@ class __TraceDictionary(dict):
         self.trace_data = None
         return trace_data
 
+__unique_fn_id = 1
+
 def make_lmfit_model(expression, independent_vars=None, **kwargs):
     """A convenience function for creating a lmfit Model from an equation in a string
 
@@ -260,6 +262,8 @@ def make_lmfit_model(expression, independent_vars=None, **kwargs):
     .. _`lmfit`: https://lmfit.github.io/lmfit-py/
     
     """
+
+    global __unique_fn_id
 
     # assume "x" if not specified
     if independent_vars is None:
@@ -341,7 +345,17 @@ def make_lmfit_model(expression, independent_vars=None, **kwargs):
                 params_to_randomise.append(param)
     
     # params_to_randomise now contains everything we need!
-    code_str = "def custom_model_function("
+
+    # provide a nice model function name
+    # use prefix if it is provided to lmfit, or a unique incrementing name
+    if 'prefix' in kwargs:
+        fn_name = kwargs['prefix']
+    else:
+        fn_name = "custom_model_function_{:d}".format(__unique_fn_id)
+        __unique_fn_id += 1
+
+    # construct the function code in a string
+    code_str = "def {:s}(".format(fn_name)
     for i, param in enumerate(params_to_randomise):
         code_str += param
         if i < len(params_to_randomise)-1:
@@ -356,7 +370,7 @@ def make_lmfit_model(expression, independent_vars=None, **kwargs):
     # execute it in the sandbox
     exec(code, sandbox, sandbox)
     # extract the model function and create the model
-    model_fn = sandbox['custom_model_function']
+    model_fn = sandbox[fn_name]
     model = lmfit.models.Model(model_fn, independent_vars=independent_vars, **kwargs)
     return model
 
