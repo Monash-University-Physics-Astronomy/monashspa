@@ -15,6 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with monashspa.  If not, see <http://www.gnu.org/licenses/>.
 
+# Advanced fitting tutorial data
+from ..PHS2061 import fitting_tutorial
+
+
 from .optical_tweezers import trap_k_theory as __trap_k_theory
 
 def model_1(r, w, I):
