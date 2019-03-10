@@ -16,10 +16,9 @@
 # along with monashspa.  If not, see <http://www.gnu.org/licenses/>.
 
 # Advanced fitting tutorial data
-from ..PHS2061 import fitting_tutorial
+from . import fitting
 
-
-from .optical_tweezers import trap_k_theory as __trap_k_theory
+from ..optical_tweezers import trap_k_theory as __trap_k_theory
 
 def model_1(r, w, I):
     # scale parameters

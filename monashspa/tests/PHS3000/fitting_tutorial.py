@@ -26,7 +26,7 @@ def nonlinear_fit():
     import monashspa.PHS3000 as spa
 
     # load the data
-    data = spa.tutorials.fitting_tutorial.data
+    data = spa.tutorials.fitting.part_b_data
     # slice the data into columns
     t = data[:,0]
     A = data[:,1]
@@ -61,7 +61,7 @@ def nonlinear_fit_with_independent_as_t():
     import monashspa.PHS3000 as spa
 
     # load the data
-    data = spa.tutorials.fitting_tutorial.data
+    data = spa.tutorials.fitting.part_b_data
     # slice the data into columns
     t = data[:,0]
     A = data[:,1]
@@ -96,7 +96,7 @@ def linear_fit_model():
     import monashspa.PHS3000 as spa
 
     # load the data
-    data = spa.tutorials.fitting_tutorial.data
+    data = spa.tutorials.fitting.part_b_data
     # slice the data into columns
     t = data[:,0]
     A = data[:,1]
@@ -134,7 +134,7 @@ def linear_fit():
     import monashspa.PHS3000 as spa
 
     # load the data
-    data = spa.tutorials.fitting_tutorial.data
+    data = spa.tutorials.fitting.part_b_data
     # slice the data into columns
     t = data[:,0]
     A = data[:,1]
@@ -164,7 +164,7 @@ def linear_fit_dual_custom_model():
     import monashspa.PHS3000 as spa
 
     # load the data
-    data = spa.tutorials.fitting_tutorial.data
+    data = spa.tutorials.fitting.part_b_data
     # slice the data into columns
     t = data[:,0]
     A = data[:,1]
@@ -204,7 +204,7 @@ def linear_fit_dual_custom_named_model():
     import monashspa.PHS3000 as spa
 
     # load the data
-    data = spa.tutorials.fitting_tutorial.data
+    data = spa.tutorials.fitting.part_b_data
     # slice the data into columns
     t = data[:,0]
     A = data[:,1]
