@@ -237,8 +237,57 @@ def linear_fit_dual_custom_named_model():
 
     return success
 
+def non_linear_fit_part_c():
+    """Test of PHS3000 non-linear fit to multi-model data"""
+
+    ### Get results ###
+    import monashspa.PHS3000 as spa
+
+    # load the data
+    data = spa.tutorials.fitting.part_c1_data
+    # slice the data into columns
+    x = data[:,0]
+    y = data[:,1]
+
+    # Define the models
+    model1 = spa.make_lmfit_model("A1*exp(-(x-B1)**2/D1**2)", name="Gaussian1")
+    model2 = spa.make_lmfit_model("A2*exp(-(x-B2)**2/D2**2)", name="Gaussian2")
+    model3 = spa.make_lmfit_model("c+x*0", name="Offset")
+    model = model1 + model2 + model3
+    params = model.make_params(A1=np.max(y), B1=100, D1=6, A2=np.max(y), B2=160, c=3)
+    params.add('D2', expr='D1')
+    params.add('FWHM', expr='2*sqrt(log(2)*D1)')
+    fit_results = spa.model_fit(model, params, x=x, y=y)
+    results = spa.get_fit_parameters(fit_results)
+
+    ### Expected results ###
+    expected_results = {
+        'A1': 16.58279101985785, 
+        'u_A1': 0.351003396364092, 
+        'B1': 95.82492417888295, 
+        'u_B1': 0.12363799249150613, 
+        'D1': 6.705149651134903, 
+        'u_D1': 0.1412232821933916, 
+        'A2': 13.690661831671, 
+        'u_A2': 0.33945028545509237, 
+        'B2': 164.19308257427863, 
+        'u_B2': 0.1497567729486557, 
+        'D2': 6.705149651134903, 
+        'u_D2': 0.14122328218157232, 
+        'c': 2.636117481366362, 
+        'u_c': 0.06764023986252798, 
+        'FWHM': 4.311684392863958, 
+        'u_FWHM': 0.045406161696634036
+    }
+    precision = 1e-5
+
+    ### Check results match within precision ###
+    success = compare_dictionary(results, expected_results, precision)
+
+    return success
+
 def do_tests():
-    tests = [nonlinear_fit, nonlinear_fit_with_independent_as_t, linear_fit, linear_fit_model, linear_fit_dual_custom_model, linear_fit_dual_custom_named_model]
+    tests = [nonlinear_fit, nonlinear_fit_with_independent_as_t, linear_fit, linear_fit_model, linear_fit_dual_custom_model, linear_fit_dual_custom_named_model, non_linear_fit_part_c]
     failed_tests = []
 
     print('Running PHS3000 fitting tutorial tests...')
