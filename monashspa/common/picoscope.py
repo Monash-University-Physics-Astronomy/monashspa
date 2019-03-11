@@ -20,6 +20,17 @@ import pandas
 def read_picoscope_csv(filepath):
     """Reads the csv file saved from the PicoScope software
     
+    .. note:: The picoscope software will save overrange values in the csv file
+              as either "Infinity" or the unicode symbol for infinity (which 
+              will show up in some software as several random characters). This
+              Python function converts those instances to :code:`np.nan`.
+
+    .. note:: This function attempts to return values in S.I. units without a 
+              prefix. For example, if the csv file contains time in 
+              milliseconds, this function will attempt to detect that and return 
+              the data in units of seconds. If the function fails to make this 
+              conversion, a warning message will be printed.
+
     Arguments:
         filepath: A string containing the path to the csv file
 
@@ -33,7 +44,7 @@ def read_picoscope_csv(filepath):
     """
 
     # read the data (skip the second line, and only use first 3 columns)
-    df = pandas.read_csv(filepath, skiprows=[1,2], usecols=[0,1,2], na_values=['Infinity', '-Infinity'])
+    df = pandas.read_csv(filepath, skiprows=[1,2], usecols=[0,1,2], na_values=['Infinity', '-Infinity', '\u221e', '-\u221e'])
 
     time = df[df.columns[0]].values
     CHA = df[df.columns[1]].values
