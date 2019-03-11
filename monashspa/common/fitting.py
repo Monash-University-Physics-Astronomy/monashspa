@@ -16,6 +16,7 @@
 # along with monashspa.  If not, see <http://www.gnu.org/licenses/>.
 
 import random
+import traceback
 
 import lmfit
 from lmfit.models import LinearModel
@@ -93,7 +94,13 @@ def model_fit(model, parameters, x, y, u_y=None, **kwargs):
     elif len(missing_vars) == 1:
         kwargs[missing_vars[0]] = x 
 
-    fit_result = model.fit(y, parameters, weights=u_y, **kwargs)
+    try:
+        fit_result = model.fit(y, parameters, weights=u_y, **kwargs)
+    except ValueError:
+        msg = traceback.format_exc()
+        msg += '\n'
+        msg += 'The fit failed. This is usually either because (a) you did not provide sufficient guesses for the model parameters, (b) you did not correctly specify the independent variable in your model (by default it must be "x"), or (c) the data you are fitting to contains NaN values.'
+        raise MonashSPAFittingException(msg)
 
     return fit_result
 
@@ -230,16 +237,20 @@ def make_lmfit_model(expression, independent_vars=None, **kwargs):
     Note that the expression does not contain the :code:`y` or :code:`=`
     symbols 
     
-    The independent variable is assumed to be :code:`x` unless otherwise
-    specified. All other variables are assumed to be parameters you wish
-    the fitting routine to optimise.
-
     Standard numpy and scipy.special functions are also available for use 
     in your expression.
     For example, this is also a valid expression: :code:`"sin(x)+c"`.
 
     The expression must always be valid Python code, and must be able to 
     be evaluated with every parameter set to a random floating point number.
+
+    The independent variable is assumed to be :code:`x` unless otherwise
+    specified. All other variables are assumed to be parameters you wish
+    the fitting routine to optimise. These parameters will be given an initial
+    hint of 1 in the returned model, but can be overridden later using 
+    :py:meth:`lmfit.model.Model.set_param_hint`,
+    :py:meth:`lmfit.model.Model.make_params`, or 
+    :py:meth:`lmfit.parameter.Parameters.add`.
 
     Note: Additional keyword arguments are passed directly to 
     :py:class:`lmfit.model.Model`.
@@ -372,6 +383,12 @@ def make_lmfit_model(expression, independent_vars=None, **kwargs):
     # extract the model function and create the model
     model_fn = sandbox[fn_name]
     model = lmfit.models.Model(model_fn, independent_vars=independent_vars, **kwargs)
+
+    # set default parameter hints that are not just -Inf
+    for param in params_to_randomise:
+        if param not in independent_vars:
+            model.set_param_hint(param, value=1)
+
     return model
 
 def __model_sandbox_imports(sandbox):
