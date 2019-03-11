@@ -175,7 +175,7 @@ def __cf_linearised_search(params, f, y):
     quadratic_result = __quadratic_fit(out, y)
 
     e = linear_result.best_fit - quadratic_result.best_fit
-    return np.transpose(e)@e
+    return np.matmul(np.transpose(e), e)
 
 def __quadratic_fit(x, y):
     """Special purpose quadratic fit for optical tweezers
