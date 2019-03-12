@@ -86,8 +86,92 @@ def test_linear_fit_with_uncertainties():
 
     return success
 
+def test_failed_fit_1():
+    """A test of the exception that should be raised if you don't use the independent variable"""
+    ### Get results ###
+    import monashspa.PHS2061 as spa
+    from monashspa.common.fitting import MonashSPAFittingException
+
+    # load the data
+    data = spa.fitting_tutorial.data
+    # slice the data into columns
+    t = data[:,0]
+    A = data[:,1]
+    u_A = data[:,2]
+
+    model1 = spa.make_lmfit_model("A_0*exp(-l*x)")
+    success = False
+    try:
+        model2 = spa.make_lmfit_model("A_0")
+    except MonashSPAFittingException as e:
+        if str(e).startswith('You have not used the independent variable'):
+            success=True
+
+    return success
+
+def test_bypass_failed_fit_1():
+    """A test of suppressing the exception that should be raised if you don't use the independent variable"""
+    ### Get results ###
+    import monashspa.PHS2061 as spa
+
+    # load the data
+    data = spa.fitting_tutorial.data
+    # slice the data into columns
+    t = data[:,0]
+    A = data[:,1]
+    u_A = data[:,2]
+
+    model1 = spa.make_lmfit_model("exp(-l*x)")
+    model2 = spa.make_lmfit_model("A_0", allow_constant_model=True)
+    model = model1*model2
+    params = model.make_params(A_0=30, l=.005)
+    params.add('halflife', expr="log(2)/l")
+    fit_results = spa.model_fit(model, params, x=t, y=A, u_y=u_A)
+    results = spa.get_fit_parameters(fit_results)
+    
+    ### Expected results ###
+    expected_results = {
+        'A_0': 20.573035990441486,
+        'u_A_0': 0.6181473325960677,
+        'l': 0.005004779941925933,
+        'u_l': 0.00015840653659960648,
+        'halflife': 138.49703455557113,
+        'u_halflife': 4.38357646646529,
+    }
+    precision = 2e-7
+    
+    ### Check results match within precision ###
+    success = compare_dictionary(results, expected_results, precision)
+
+    return success
+
+def test_failed_fit_2():
+    """A test of not specifying a good initial guess for a parameter"""
+    ### Get results ###
+    import monashspa.PHS2061 as spa
+    from monashspa.common.fitting import MonashSPAFittingException
+
+    # load the data
+    data = spa.fitting_tutorial.data
+    # slice the data into columns
+    t = data[:,0]
+    A = data[:,1]
+    u_A = data[:,2]
+
+    model = spa.make_lmfit_model("A_0*exp(-l*x)")
+    params = model.make_params(A_0=30) # l will be "1" by default which is a bad guess
+    params.add('halflife', expr="log(2)/l")
+    success = False
+    try:
+        fit_results = spa.model_fit(model, params, x=t, y=A, u_y=u_A)
+    except MonashSPAFittingException as e:
+        if str(e).endswith('The fit failed. This is usually either because (a) you did not provide sufficient guesses for the model parameters, (b) you did not correctly specify the independent variable in your model (by default it must be "x"), or (c) the data you are fitting to contains NaN values.'):
+            success=True
+    
+    return success
+
 def do_tests():
-    tests = [test_basic_linear_fit, test_linear_fit_with_uncertainties]
+    tests = [test_basic_linear_fit, test_linear_fit_with_uncertainties, test_failed_fit_1, test_bypass_failed_fit_1, test_failed_fit_2]
     failed_tests = []
     print('Running common fitting tests...')
 

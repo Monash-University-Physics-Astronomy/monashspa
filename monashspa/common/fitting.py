@@ -21,7 +21,7 @@ import traceback
 import lmfit
 from lmfit.models import LinearModel
 import numpy as np
-# from warnings import warn
+from warnings import warn
 
 class MonashSPAFittingException(Exception):
     pass
@@ -204,28 +204,34 @@ class __TraceDictionary(dict):
 
     def __init__(self, *args, **kwargs):
         self.trace_data = None
+        self.all_accessed_vars = None
         dict.__init__(self, *args, **kwargs)
 
     def start_trace(self):
         self.trace_data = []
+        self.all_accessed_vars = []
 
     def __getitem__(self, key):
         # only trace things that don't exist
         try:
             dict.__getitem__(self, key)
+            self.all_accessed_vars.append(key)
         except Exception:
             if self.trace_data is not None:
                 if key not in self.trace_data:
                     self.trace_data.append(key)
         return dict.__getitem__(self, key)
+
     def stop_trace(self):
         trace_data = self.trace_data
+        all_accessed_vars = self.all_accessed_vars
         self.trace_data = None
-        return trace_data
+        self.all_accessed_vars = None
+        return trace_data, all_accessed_vars
 
 __unique_fn_id = 1
 
-def make_lmfit_model(expression, independent_vars=None, **kwargs):
+def make_lmfit_model(expression, independent_vars=None, allow_constant_model=False, **kwargs):
     """A convenience function for creating a lmfit Model from an equation in a string
 
     This function takes an expression containing the right hand side of an
@@ -265,6 +271,20 @@ def make_lmfit_model(expression, independent_vars=None, **kwargs):
                           not be varied by lmfit. If set to :code:`None`
                           (the default) it assumes that the independent
                           variables is just :code:`["x"]`
+        
+        allow_constant_model: A Boolean to indicate whether to suppress the 
+                              exception raised if you don't use the independent
+                              variable(s) in your model equation. Defaults to 
+                              :code:`False` (raise the exception). If you do 
+                              wish to use a constant model, we recommend
+                              leaving this as "False" and modifying your model
+                              equation to include an "x*0" (or similar) term as
+                              this also ensures the component can be plotted
+                              using 
+                              :py:meth:`lmfit.model.ModelResult.eval_components` 
+                              without additional modification. However, you can 
+                              also set this to :code:`True` to suppress the 
+                              Exception and restore the default lmfit behaviour.
 
     Returns:
         A :py:class:`lmfit.model.Model` object to be used for fitting with
@@ -288,6 +308,11 @@ def make_lmfit_model(expression, independent_vars=None, **kwargs):
     # provide some basic numpy functionality
     __model_sandbox_imports(sandbox)
 
+    # warn if the independent vars are named after things that already exist in sandbox
+    for param in independent_vars:
+        if param in sandbox:
+            warn('\nYour independent variable "{}" shares a name with an item in the numpy or scipy libraries. This may cause unexpected behaviour. Please use something unique, such as "x".\n\n'.format(param))
+
     # keep a list of parameters we should randomise every iteration 
     # (to prevent things like divide by 0 exceptions!)
     params_to_randomise = []
@@ -309,7 +334,7 @@ def make_lmfit_model(expression, independent_vars=None, **kwargs):
             code = compile(expression, '<string>', 'eval')
             eval(code, sandbox)
         except TypeError:
-            params = sandbox.stop_trace()
+            params, _ = sandbox.stop_trace()
 
             problem_param = None
             if params_to_randomise is not None:
@@ -330,7 +355,7 @@ def make_lmfit_model(expression, independent_vars=None, **kwargs):
             #
             # So we get the params found in this evaluation, and
             # see if any are new
-            params = sandbox.stop_trace()
+            params, _ = sandbox.stop_trace()
             original_length = len(params_to_randomise)
             for param in params:
                 if param not in params_to_randomise:
@@ -350,10 +375,16 @@ def make_lmfit_model(expression, independent_vars=None, **kwargs):
         
         # if we get to here, everything evaluated!
         success = True
-        params = sandbox.stop_trace()
+        params, all_params = sandbox.stop_trace()
         for param in params:
             if param not in params_to_randomise:
                 params_to_randomise.append(param)
+
+        # check if all of the independent variables are used as a parameter
+        for param in independent_vars:
+            if param not in all_params:
+                if not allow_constant_model:
+                    raise MonashSPAFittingException('You have not used the independent variable "{param}" in your model "{model}". Have you accidentally used a different variable name for your independent variable? This may produce unexpected results. Please update your model so that is is defined as a function of "{param}". If you are certain your model is correct, then you can suppress this exception by passing the optional argument "allow_constant_model=True" to the call to make_lmfit_model().'.format(param=param, model=expression))
     
     # params_to_randomise now contains everything we need!
 

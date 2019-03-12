@@ -171,7 +171,7 @@ def linear_fit_dual_custom_model():
     u_A = data[:,2]
 
     model1 = spa.make_lmfit_model("m*x")
-    model2 = spa.make_lmfit_model("c")
+    model2 = spa.make_lmfit_model("c+x*0")
     model = model1 + model2
     params = model.make_params(m=0.04, c=5)
     params.add('halflife', expr="-log(2)/m")
@@ -211,7 +211,7 @@ def linear_fit_dual_custom_named_model():
     u_A = data[:,2]
 
     model1 = spa.make_lmfit_model("m*x", prefix="m1")
-    model2 = spa.make_lmfit_model("c", prefix="m2")
+    model2 = spa.make_lmfit_model("c+x*0", prefix="m2")
     model = model1 + model2
     params = model.make_params(m1m=0.04, m2c=5)
     params.add('halflife', expr="-log(2)/m1m")
