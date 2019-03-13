@@ -21,7 +21,7 @@ from setuptools import setup, find_packages
 # Define the current version of the library
 # Update this before building and publishing a new version
 # see https://semver.org/ for guidelines on how to modify the version string
-VERSION = '1.2.0'
+VERSION = '1.3.0'
 
 # get directory of setup.py and the rest of the code for the library
 code_dir = os.path.abspath(os.path.dirname(__file__))
@@ -79,5 +79,6 @@ setup(
     ],
     data_files=[
         ('monashspa/PHS2061', ['monashspa/PHS2061/PHS20x1UncertaintiesData.csv']),
+        ('monashspa/PHS3000/tutorials', ['monashspa/PHS3000/tutorials/PHS3000UncertaintiesData.csv']),
     ]
 )

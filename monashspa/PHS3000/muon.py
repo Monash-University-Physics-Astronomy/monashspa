@@ -19,7 +19,7 @@ import numpy as np
 import pandas
 
 def read_data(filepath):
-    """Imports the power spectrum data from the muon physics data file
+    """Imports data from the muon physics .data file
 
     Arguments:
         filepath: The path to the .data file produced by the muon
