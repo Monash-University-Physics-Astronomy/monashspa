@@ -28,6 +28,7 @@ from . import reflex_klystron
 from . import rubidium_spectroscopy
 from . import holes_in_ge
 from . import thermoelectricity
+from . import mossbauer
 from . import resistivity_germanium
 from . import microwave_transmission
 from . import betaray

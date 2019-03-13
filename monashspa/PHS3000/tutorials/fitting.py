@@ -15,7 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with monashspa.  If not, see <http://www.gnu.org/licenses/>.
 
+import os
+
 import numpy as np
+import pandas
 
 from ...PHS2061.fitting_tutorial import data as part_b_data
 
@@ -247,3 +250,15 @@ __raw_c1_data = np.array([
 part_c1_data = np.zeros((__raw_c1_data.shape[0],2))
 part_c1_data[:,0] = np.arange(0, __raw_c1_data.shape[0])
 part_c1_data[:,1] = __raw_c1_data
+
+
+try:
+    __filepath = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'PHS3000UncertaintiesData.csv')
+    part_c2_data = pandas.read_csv(__filepath, usecols=[0,1,2])
+    part_c2_data = part_c2_data.to_numpy()
+except:
+    part_c2_data = "Warning: failed to import data from csv file. Possibly the monashspa library is not installed correctly."
+
+# cleanup
+del __raw_c1_data
+del __filepath

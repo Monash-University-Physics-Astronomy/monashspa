@@ -238,7 +238,7 @@ def linear_fit_dual_custom_named_model():
     return success
 
 def non_linear_fit_part_c():
-    """Test of PHS3000 non-linear fit to multi-model data"""
+    """Test of PHS3000 non-linear fit to generic multi-model data"""
 
     ### Get results ###
     import monashspa.PHS3000 as spa
@@ -286,8 +286,53 @@ def non_linear_fit_part_c():
 
     return success
 
+def nonlinear_fit_part_c2():
+    """Test of PHS3000 non-linear fit to multi-model nuclear decay data"""
+    import monashspa.PHS3000 as spa
+
+    # load the data
+    data = spa.tutorials.fitting.part_c2_data
+    # slice the data into columns
+    t = data[:,0]
+    A = data[:,1]
+    u_A = data[:,2]
+
+    ag110_model = spa.make_lmfit_model("A_0*exp(-l*x)", prefix="AG110_")
+    ag108_model = spa.make_lmfit_model("A_0*exp(-l*x)", prefix="AG108_")
+    offset = spa.make_lmfit_model("c+x*0", name="offset")
+    model = ag110_model + ag108_model + offset
+    params = model.make_params(AG110_A_0=A[0], AG110_l=np.log(2)/t[4], AG108_l=np.log(2)/t[9], c=0)
+    params.add('c', min=0, value=0, max=0.1, vary=True)
+    params.add('AG110_halflife', expr='log(2)/AG110_l')
+    params.add('AG108_halflife', expr='log(2)/AG108_l')
+    fit_results = spa.model_fit(model, params, x=t, y=A, u_y=u_A)
+    results = spa.get_fit_parameters(fit_results)
+
+    expected_results = {
+        'AG110_A_0': 106.62466958768731,
+        'u_AG110_A_0': 3.7021128718124436,
+        'AG110_l': 0.03272908958050027,
+        'u_AG110_l': 0.0019419683658320412, 
+        'AG108_A_0': 24.504027101025645, 
+        'u_AG108_A_0': 2.492813131791383, 
+        'AG108_l': 0.005097263436001847, 
+        'u_AG108_l': 0.000586527763335435, 
+        'c': 6.436383415431291e-06, 
+        'u_c': 0.3624263607727759, 
+        'AG110_halflife': 21.178321470112536, 
+        'u_AG110_halflife': 1.2566078265666092, 
+        'AG108_halflife': 135.98417842489044, 
+        'u_AG108_halflife': 15.647316857620634
+    }
+    precision = 1e-5
+
+    ### Check results match within precision ###
+    success = compare_dictionary(results, expected_results, precision)
+
+    return success
+
 def do_tests():
-    tests = [nonlinear_fit, nonlinear_fit_with_independent_as_t, linear_fit, linear_fit_model, linear_fit_dual_custom_model, linear_fit_dual_custom_named_model, non_linear_fit_part_c]
+    tests = [nonlinear_fit, nonlinear_fit_with_independent_as_t, linear_fit, linear_fit_model, linear_fit_dual_custom_model, linear_fit_dual_custom_named_model, non_linear_fit_part_c, nonlinear_fit_part_c2]
     failed_tests = []
 
     print('Running PHS3000 fitting tutorial tests...')

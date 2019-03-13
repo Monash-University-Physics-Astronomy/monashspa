@@ -15,6 +15,7 @@ Submodules
    PHS3000/rb_reference
    PHS3000/holes_in_ge
    PHS3000/thermoelectricity
+   PHS3000/mossbauer
    PHS3000/resistivity_germanium_reference
    PHS3000/microwave_transmission_reference
    PHS3000/betaray
