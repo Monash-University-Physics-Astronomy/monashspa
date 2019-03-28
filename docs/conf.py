@@ -182,4 +182,5 @@ intersphinx_mapping = {
     'python': ('https://docs.python.org/3', None),
     'lmfit': ('https://lmfit.github.io/lmfit-py', None),
     'matplotlib': ('https://matplotlib.org', None),
+    'pandas': ('https://pandas.pydata.org/pandas-docs/stable/', None),
 }

@@ -20,6 +20,7 @@ from monashspa.common.fitting import linear_fit, get_fit_parameters, make_lmfit_
 from monashspa.common.figures import savefig
 from monashspa.common.admca import read_mca_file
 from monashspa.common.picoscope import read_picoscope_csv
+from monashspa.common.csv_reader import read_csv
 
 # things for lab experiments
 from . import optical_tweezers
