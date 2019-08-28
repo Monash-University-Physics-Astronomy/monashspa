@@ -49,7 +49,7 @@ setup(
     url='https://monashspa.readthedocs.io',
     project_urls={
         "Documentation": "https://monashspa.readthedocs.io",
-        "Source Code": "https://https://github.com/Monash-University-Physics-Astronomy/monashspa",
+        "Source Code": "https://github.com/Monash-University-Physics-Astronomy/monashspa",
     },
     license='GPLv3',
     author='School of Physics & Astronomy, Monash University',
