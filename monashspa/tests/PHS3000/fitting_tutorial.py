@@ -324,10 +324,18 @@ def nonlinear_fit_part_c2():
         'AG108_halflife': 135.98417842489044, 
         'u_AG108_halflife': 15.647316857620634
     }
-    precision = 3e-3
+    precision = 5e-3
+
+    # split off the check for u_c as the precision (variation across platforms) is much worse than everything else.
+    # This is to be expected with multi-model non-linear fits.
+    u_c_precision = 0.3
+    u_c_result = {'u_c':results['u_c']}
+    u_c_expected_result = {'u_c':expected_results['u_c']}
+    del results['u_c']
+    del expected_results['u_c']
 
     ### Check results match within precision ###
-    success = compare_dictionary(results, expected_results, precision)
+    success = compare_dictionary(results, expected_results, precision) and compare_dictionary(u_c_result, u_c_expected_result, u_c_precision)
 
     return success
 
