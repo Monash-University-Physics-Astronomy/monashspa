@@ -59,5 +59,7 @@ if __name__ == "__main__":
     print("Tests complete.")
     if failed_tests:
         print("Error: There were {} failed tests".format(len(failed_tests)))
+        sys.exit(1)
     else:
         print("All tests completed successfully!")
+        sys.exit(0)
