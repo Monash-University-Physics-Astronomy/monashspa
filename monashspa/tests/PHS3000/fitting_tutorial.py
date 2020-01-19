@@ -324,7 +324,7 @@ def nonlinear_fit_part_c2():
         'AG108_halflife': 135.98417842489044, 
         'u_AG108_halflife': 15.647316857620634
     }
-    precision = 1e-3
+    precision = 3e-3
 
     ### Check results match within precision ###
     success = compare_dictionary(results, expected_results, precision)
