@@ -108,6 +108,7 @@ setup(
         'pandas>=0.24,<1',
         'six',
         'piradon',
+        'matplotlib'
     ],
     data_files=[
         ('monashspa/PHS2061', ['monashspa/PHS2061/PHS20x1UncertaintiesData.csv']),
