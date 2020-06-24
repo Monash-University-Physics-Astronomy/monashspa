@@ -86,7 +86,6 @@ setup(
     license='GPLv3',
     author='School of Physics & Astronomy, Monash University',
     classifiers=['Development Status :: 5 - Production/Stable',
-                 'Programming Language :: Python :: 2.7',
                  'Programming Language :: Python :: 3.4',
                  'Programming Language :: Python :: 3.5',
                  'Programming Language :: Python :: 3.6',
@@ -97,7 +96,7 @@ setup(
                  'Natural Language :: English',
                  'Operating System :: OS Independent',
                 ],
-    python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, <4',
+    python_requires='>=3.4, <4',
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
@@ -112,5 +111,10 @@ setup(
     data_files=[
         ('monashspa/PHS2061', ['monashspa/PHS2061/PHS20x1UncertaintiesData.csv']),
         ('monashspa/PHS3000/tutorials', ['monashspa/PHS3000/tutorials/PHS3000UncertaintiesData.csv']),
+        ('monashspa/PHS2062', ['monashspa/PHS2062/PHS2062_pendulum_data.csv',
+                               'monashspa/PHS2062/PHS2062_gas_short_data.csv',
+                               'monashspa/PHS2062/PHS2062_gas_short_2_data.csv',
+                               'monashspa/PHS2062/PHS2062_gas_data.csv',
+        ]),
     ]
 )
