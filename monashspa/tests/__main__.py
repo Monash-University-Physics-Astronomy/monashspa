@@ -1,3 +1,4 @@
+print('__file__={0:<35} | __name__={1:<20} | __package__={2:<20}'.format(__file__,__name__,str(__package__)))
 # Copyright 2019 School of Physics & Astronomy, Monash University
 #
 # This file is part of monashspa.
@@ -43,16 +44,16 @@ if __name__ == "__main__":
     
     failed_tests = []
     
-    from . import fitting
+    import monashspa.tests.fitting as fitting
     failed_tests.extend(fitting.do_tests())
 
-    from .PHS2061 import fitting_tutorial
+    from monashspa.tests.PHS2061 import fitting_tutorial
     failed_tests.extend(fitting_tutorial.do_tests())
 
-    from .PHS3000 import fitting_tutorial as PHS3000_fitting_tutorial
+    from monashspa.tests.PHS3000 import fitting_tutorial as PHS3000_fitting_tutorial
     failed_tests.extend(PHS3000_fitting_tutorial.do_tests())
 
-    from .PHS3000 import optical_tweezers
+    from monashspa.tests.PHS3000 import optical_tweezers
     failed_tests.extend(optical_tweezers.do_tests())
 
     print()
