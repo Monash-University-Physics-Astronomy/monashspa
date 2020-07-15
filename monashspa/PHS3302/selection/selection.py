@@ -3,6 +3,12 @@
 # # A demonstration of using a neural network to obtain a cleaner sample of $B^0 \to K^{*0}\mu^+\mu^-$ decays
 #############################################################################################################
 
+# The data files below should be copied into the same folder as where this file is located.
+#
+# simulation.h5 : Contains simulated events of the decay
+# data.h5 : Contains events from the LHCb detector in 2016
+# data-uppersideband.h5 : Events from the upper sideband of the data
+
 import h5py
 import matplotlib.pyplot as plt
 from keras.models import Sequential
