@@ -105,14 +105,19 @@ setup(
         'requests>=2.21.0,<3',
         'colorama>=0.4.1,<1',
         'pandas>=1.0,<2',
+        'scipy==1.4.1',
         'six',
         'piradon',
         'matplotlib',
-        'tensorflow',
-        'keras',
-        'sklearn',
         'h5py',
     ],
+    extras_require={
+        'PHS3302': [
+            'tensorflow==2.2.0',
+            'keras',
+            'sklearn',
+        ]
+    },
     data_files=[
         ('monashspa/PHS2061', ['monashspa/PHS2061/PHS20x1UncertaintiesData.csv']),
         ('monashspa/PHS3000/tutorials', ['monashspa/PHS3000/tutorials/PHS3000UncertaintiesData.csv']),
