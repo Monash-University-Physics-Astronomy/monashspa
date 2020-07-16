@@ -9,17 +9,14 @@
 # data.h5 : Contains events from the LHCb detector in 2016
 # data-uppersideband.h5 : Events from the upper sideband of the data
 
-import h5py
 import matplotlib.pyplot as plt
+import numpy as np
 from keras.models import Sequential
 from keras.layers import Dense, Activation
 from keras.layers.normalization import BatchNormalization
-import numpy as np
+from monashspa.PHS3302.selection.frame import getframe
 
 # Some helper functions
-def getframe(fname):
-    hdf5file = h5py.File(fname, "r")
-    return hdf5file['events']
 
 def stack(frame, column_names):
     arrays = [frame[name] for name in column_names]
@@ -166,20 +163,22 @@ plt.show(block=False)
 # ## Compare to a cut based analysis
 # Implement a single cut on the B0_PT variable and create a ROC curve for varying that cut. Plot it on top of the ROC curve for the NN above. You can also try to add two different variables to cut on.
 
-uppersidebandBPt = getframe("data-uppersideband.h5")['B0_PT']
-simulationBPt = getframe("simulation.h5")['B0_PT']
-n_uppersideband = len(uppersidebandBPt)
-n_simulation = len(simulationBPt)
+# uppersidebandVar = getframe("data-uppersideband.h5")['NAMEOFVAR']
+# simulationVar = getframe("simulation.h5")['NAMEOFVAR']
+# n_uppersideband = len(uppersidebandVar)
+# n_simulation = len(simulationVar)
 
-fig = plt.figure(figsize=(5,5))
-ax1 = fig.subplots(1, 1)
-ax1.plot([0, 1], [0, 1], 'k--')
-ax1.plot(fpr_keras, tpr_keras, label='NN')
-ax1.plot(fpr_BPt, tpr_BPt, label='B Pt')
-ax1.set_xlabel('False positive rate')
-ax1.set_ylabel('True positive rate')
-ax1.set_title('ROC curve')
-ax1.legend(loc='best')
+# # Some code here to fille the fpr_Var, tpr_Var arrays
+
+# fig = plt.figure(figsize=(5,5))
+# ax1 = fig.subplots(1, 1)
+# ax1.plot([0, 1], [0, 1], 'k--')
+# ax1.plot(fpr_keras, tpr_keras, label='NN')
+# ax1.plot(fpr_Var, tpr_Var, label='Var')
+# ax1.set_xlabel('False positive rate')
+# ax1.set_ylabel('True positive rate')
+# ax1.set_title('ROC curve')
+# ax1.legend(loc='best')
 
 # 2 marks: Extract the B Pt variable
 # 2 marks: Create the ROC curve
