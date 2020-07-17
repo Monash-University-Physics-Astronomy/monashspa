@@ -180,7 +180,7 @@ plt.show(block=False)
 # ax1.set_title('ROC curve')
 # ax1.legend(loc='best')
 
-# 2 marks: Extract the B Pt variable
+# 2 marks: Extract the chosen variable
 # 2 marks: Create the ROC curve
 # 2 marks: Add second variable.
 # 2 marks: Interpret result

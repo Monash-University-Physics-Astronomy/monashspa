@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 
 import random
-import model
 
+import monashspa.PHS3302.calorimeter.model as model
 import matplotlib.pyplot as plt
 import numpy as np
 
