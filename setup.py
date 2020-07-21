@@ -125,12 +125,13 @@ setup(
                                'monashspa/PHS2062/PHS2062_gas_short_2_data.csv',
                                'monashspa/PHS2062/PHS2062_gas_data.csv',
                                'monashspa/PHS2062/PHS2062_gas_fit.py',
+                               'monashspa/PHS2062/PHS2062_gas_fit.ipynb',
         ]),
         ('monashspa/PHS3302/calorimeter', ['monashspa/PHS3302/calorimeter/calorimeter.py',
                                            'monashspa/PHS3302/calorimeter/calorimeter.ipynb',
         ]),
-        ('monashspa/PHS3302/selection', ['monashspa/PHS3302/calorimeter/selection.py',
-                                         'monashspa/PHS3302/calorimeter/selection.ipynb',
+        ('monashspa/PHS3302/selection', ['monashspa/PHS3302/selection/selection.py',
+                                         'monashspa/PHS3302/selection/selection.ipynb',
         ]),
     ]
 )
