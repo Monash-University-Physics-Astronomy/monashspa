@@ -121,10 +121,16 @@ setup(
     data_files=[
         ('monashspa/PHS2061', ['monashspa/PHS2061/PHS20x1UncertaintiesData.csv']),
         ('monashspa/PHS3000/tutorials', ['monashspa/PHS3000/tutorials/PHS3000UncertaintiesData.csv']),
-        ('monashspa/PHS2062', ['monashspa/PHS2062/PHS2062_pendulum_data.csv',
-                               'monashspa/PHS2062/PHS2062_gas_short_data.csv',
+        ('monashspa/PHS2062', ['monashspa/PHS2062/PHS2062_gas_short_data.csv',
                                'monashspa/PHS2062/PHS2062_gas_short_2_data.csv',
                                'monashspa/PHS2062/PHS2062_gas_data.csv',
+                               'monashspa/PHS2062/PHS2062_gas_fit.py',
+        ]),
+        ('monashspa/PHS3302/calorimeter', ['monashspa/PHS3302/calorimeter/calorimeter.py',
+                                           'monashspa/PHS3302/calorimeter/calorimeter.ipynb',
+        ]),
+        ('monashspa/PHS3302/selection', ['monashspa/PHS3302/calorimeter/selection.py',
+                                         'monashspa/PHS3302/calorimeter/selection.ipynb',
         ]),
     ]
 )
