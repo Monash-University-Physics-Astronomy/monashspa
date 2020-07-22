@@ -21,5 +21,7 @@ Contents
    install
    PHS1011_reference
    PHS2061_reference
+   PHS2062_reference
    PHS2081_reference
    PHS3000_reference
+   PHS3302_reference
