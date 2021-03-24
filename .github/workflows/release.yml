@@ -18,7 +18,9 @@ jobs:
           pip install -r requirements.txt
       - name: Get the version
         id: get_version
-        run: echo 'GHA_TAG_VERSION=${GITHUB_REF}#refs/tags/' >> $GITHUB_ENV
+        run: |
+          ref=${GITHUB_REF#refs/tags/}
+          echo 'GHA_TAG_VERSION=${ref}' >> $GITHUB_ENV
       - name: Get the SHA1 of the git commit
         id: get_hash
         run: echo 'GHA_GIT_COMMIT=${GITHUB_SHA}' >> $GITHUB_ENV
