@@ -33,12 +33,6 @@ jobs:
           python -m pip install matplotlib
           python -m pip install --no-index --find-links=dist monashspa
           python -m monashspa.tests
-      - name: Publish package to test PyPI
-        uses: pypa/gh-action-pypi-publish@master
-        with:
-          user: __token__
-          password: ${{ secrets.PYPI_TEST }}
-          repository_url: https://test.pypi.org/legacy/
       - name: Publish package to main PyPI
         if: github.event_name == 'push' && startsWith(github.event.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@master
