@@ -19,7 +19,7 @@ jobs:
       - name: Get the version
         id: get_version
         run: |
-          export ref=${GITHUB_REF#refs/tags/}
+          export ref=${GITHUB_REF##*/}
           echo 'GHA_TAG_VERSION='${ref} >> $GITHUB_ENV
       - name: Get the SHA1 of the git commit
         id: get_hash
