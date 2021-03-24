@@ -18,10 +18,10 @@ jobs:
           pip install -r requirements.txt
       - name: Get the version
         id: get_version
-        run: echo ::set-env name=GHA_TAG_VERSION::${GITHUB_REF#refs/tags/}
+        run: echo 'GHA_TAG_VERSION=${GITHUB_REF#refs/tags/}' >> $GITHUB_ENV
       - name: Get the SHA1 of the git commit
         id: get_hash
-        run: echo ::set-env name=GHA_GIT_COMMIT::${GITHUB_SHA}
+        run: echo 'GHA_GIT_COMMIT=${GITHUB_SHA}' >> $GITHUB_ENV
       - name: Build package
         run: |
           python setup.py sdist 
