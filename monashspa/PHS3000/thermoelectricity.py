@@ -43,7 +43,7 @@ def read_data(filepath):
     f = np.vectorize(lambda x: x.total_seconds())
 
     # calculate the timedelta column
-    time_delta[1:] = f(arr[1:,0]-arr[0,0])
+    time_delta[1:] = f(arr[1:,0]-np.array(arr[0,0]))
 
     # insert the timedelta column at column 1
     arr = np.insert(arr, 1, time_delta, axis=1)
