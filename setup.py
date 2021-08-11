@@ -114,8 +114,7 @@ setup(
     ],
     extras_require={
         'PHS3302': [
-            'tensorflow==2.2.0',
-            'keras',
+            'tensorflow',
             'sklearn',
         ]
     },
