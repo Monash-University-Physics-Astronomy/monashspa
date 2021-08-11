@@ -15,7 +15,6 @@
 # You should have received a copy of the GNU General Public License
 # along with monashspa.  If not, see <http://www.gnu.org/licenses/>.
 
-from __future__ import print_function
 try:
     from .__version__ import __version__
 except ImportError:

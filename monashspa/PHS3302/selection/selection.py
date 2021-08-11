@@ -11,10 +11,11 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
-from keras.models import Sequential
-from keras.layers import Dense, Activation
-from keras.layers.normalization import BatchNormalization
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, Activation
+from tensorflow.keras.layers import BatchNormalization
 from monashspa.PHS3302.selection.frame import getframe
+from lmfit import minimize, Parameters, fit_report
 
 # Some helper functions
 
@@ -28,10 +29,13 @@ def stack(frame, column_names):
 signalregion_frame = getframe("data.h5")
 
 # Show what is inside the dataset
+print("="*50)
 print("The data set contains the variables:")
-print(signalregion_frame.dtype)
+for var in signalregion_frame.dtype.fields:
+    print(var)
 
-print("The BDT variable is the output of a Boosted Decision Tree which is another type of machine learning algorithm.")
+print("\nThe BDT variable is the output of a Boosted Decision Tree which is another type of machine learning algorithm.\n\n")
+print("="*50)
 
 fig = plt.figure(figsize=(25,5))
 ax1, ax2, ax3, ax4, ax5 = fig.subplots(1, 5)
@@ -150,11 +154,64 @@ ax2.legend(loc='best')
 mask = (sigoutput < 0.8)
 mass = signalregion_frame['B0_MM']
 maskedmass = np.ma.masked_array(mass, mask)
-ax3.hist(mass, 50, label='No selection')
-ax3.hist(maskedmass[~maskedmass.mask], 50, label='After cut output>0.8')
+ax3.hist(mass, 200, label='No selection')
+entries, bins, _ = ax3.hist(maskedmass[~maskedmass.mask], 200, label='After cut output>0.8')
+
+# Define a fit model
+
+def model(params, x):
+    """This model is using an exponential for the background and a Gaussian 
+    for the signal.
+    """
+    a = params['a']
+    k = params['k']
+    mean = params['mean']
+    width = params['width']
+    norm = params['norm']
+    
+    delta = x-mean
+    return a*np.exp(-k*delta) + norm*np.exp(-delta*delta/(2*width*width))
+
+def residual(params, x, data, eps_data):
+    res = (data-model(params,x)) / eps_data
+    return res
+
+#Perform fit
+minbin = 65
+maxbin = 195
+
+counts = entries[minbin:maxbin]
+u_counts = np.sqrt(counts)
+massbins = bins[minbin:maxbin] + (bins[1]-bins[0])/2.
+
+params = Parameters()
+params.add('a', value=counts[0])
+params.add('k', value=1/500.)
+params.add('mean', value=5280.0, vary=False)
+params.add('width', value=20.0, vary=True)
+params.add('norm', value=5*counts[0], vary=True)
+
+out = minimize(residual, params, args=(massbins, counts, u_counts))
+
+print('='*50)
+print('Fit model: a*exp(-k*(m-m0)) + norm*exp(-(m-m0)^2/width^2)')
+print(fit_report(out))
+
+best_fit = model(out.params,massbins)
+
+signal_params = out.params.copy()
+signal_params['a'].value = 0
+signal = model(signal_params,massbins)
+n_signal_events = sum(signal)
+print(f'The fit gives {n_signal_events:.0f} signal events')
+print('='*50)
+
+
+ax3.plot(massbins, best_fit, marker="None", linestyle="-", color="red",label="best fit")
+
 ax3.legend()
 ax3.set_xlabel(r'Reconstructed B mass [MeV/$c^2$]')
-plt.show(block=False)
+plt.show()
 
 
 # # Your exercise should start here
@@ -197,11 +254,11 @@ plt.show(block=False)
 # 2 marks: Interpret result
 
 # ## Compare to the real world
-# Now try to create a ROC curve from the actual data it will be applied to. So get an array of False Positive
-# Rates (FPR) by looking at background events in the region between 5400 and 5600 MeV. For True Positive
-# Rate (TPR), look at events in the peak between 5239 and 5319 MeV. You will need to estimate the background
-# under the peak, in order to work out the TPR. Compare this to the estimate of the ROC curve from the test
-# sample and comment on any difference. Look at if the inclusion of PID variables in your NN affects
+# Now try to create a ROC curve from the actual data it will be applied to You will need to create fits to
+# the data for a number of cuts on the discriminator variable in order to calculate your False Positive
+# Rates (FPRs) and True Positive
+# Rates (TPRs)
+# Look at if the inclusion of PID variables in your NN affects
 # your conclusions.
 
 
