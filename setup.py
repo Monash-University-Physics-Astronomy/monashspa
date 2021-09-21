@@ -101,17 +101,17 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'numpy>=1.15',
-        'lmfit>=1.0,<2',
-        'requests>=2.21.0,<3',
-        'colorama>=0.4.1,<1',
-        'pandas>=1.0',
-        'scipy>=1.4.1',
+        'numpy',
+        'lmfit',
+        'requests',
+        'colorama',
+        'pandas',
+        'scipy',
         'six',
         'piradon',
         'matplotlib',
         'h5py',
-        'sympy==1.4.2'
+        'sympy'
     ],
     extras_require={
         'PHS3302': [
