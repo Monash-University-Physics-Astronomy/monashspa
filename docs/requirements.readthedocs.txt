@@ -5,3 +5,4 @@ colorama>=0.4.1,<1
 pandas>=0.24,<1
 six
 piradon
+docutils<0.18
