@@ -107,7 +107,6 @@ setup(
         'colorama>=0.4.1,<1',
         'pandas>=1.0,<2',
         'scipy==1.4.1',
-        'six',
         'piradon',
         'matplotlib',
         'h5py',
