@@ -111,6 +111,7 @@ setup(
         'piradon',
         'matplotlib',
         'h5py',
+        'importlib-metadata>=4.8;python_version<"3.8"',
     ],
     extras_require={
         'PHS3302': [
