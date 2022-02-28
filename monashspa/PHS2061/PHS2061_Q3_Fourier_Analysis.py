@@ -29,7 +29,8 @@ sample_rate = signal_wave.getframerate()
 sig = np.frombuffer(signal_wave.readframes(-1), dtype=np.int16)
 
 ## The audio is recorded in stereo so we want to
-## split the left and right channels apart 
+## split the left and right channels apart.
+## We will only use the left channel from here onwards
 left, right = sig[0::2], sig[1::2]
 
 

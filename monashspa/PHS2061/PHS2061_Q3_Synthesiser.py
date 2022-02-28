@@ -68,7 +68,6 @@ ax1.set_title('Total wave')
 # save the plot
 plt.savefig('part2_sine_waves.pdf')
 
-
 ## Save the sample and see what it sounds like!
 scipy.io.wavfile.write("waveform_unwindowed.wav", sample_rate, total)
 
