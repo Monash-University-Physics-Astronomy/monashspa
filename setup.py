@@ -121,7 +121,10 @@ setup(
         ]
     },
     data_files=[
-        ('monashspa/PHS2061', ['monashspa/PHS2061/PHS20x1UncertaintiesData.csv']),
+        ('monashspa/PHS2061', [ 'monashspa/PHS2061/PHS20x1UncertaintiesData.csv',
+                                'monashspa/PHS2061/PHS2061_Q3_Guitar_Pluck.wav',
+                                'monashspa/PHS2061/PHS2061_Q3_Fourier_Analysis.ipynb',
+                                'monashspa/PHS2061/PHS2061_Q3_Synthesiser.ipynb' ]),
         ('monashspa/PHS3000/tutorials', ['monashspa/PHS3000/tutorials/PHS3000UncertaintiesData.csv']),
         ('monashspa/PHS2062', ['monashspa/PHS2062/PHS2062_gas_short_data.csv',
                                'monashspa/PHS2062/PHS2062_gas_short_2_data.csv',
