@@ -11,6 +11,7 @@ import monashspa
 import matplotlib.pyplot as plt
 import numpy as np
 import wave
+from matplotlib.widgets import Cursor
 
 # ------------------------------------------------------------------------------
 # First we have to import our recorded sample and extract the waveform 
@@ -94,13 +95,14 @@ freq = np.fft.rfftfreq(data_to_transform.size, d=1./sample_rate)
 
 fig, (ax0) = plt.subplots(1, 1)
 ax0.plot(freq,abs_fourier_transform)
-ax0.set_xlabel('Frequency')
+ax0.set_xlabel('Frequency (Hz)')
 ax0.set_ylabel('Absolute value of FFT')
 ax0.set_yscale('log')
+ax0.set_title('Fourier transfrom of recorded waveform')
 
 ## Pick which range of frequencies to plot
 ax0.set_xlim([0, 1000])
-
+cursor = Cursor(ax0, color='green', linewidth=1)
 plt.savefig('part1_spectrum.pdf')
 
 ## Show the plots to see them interactively
