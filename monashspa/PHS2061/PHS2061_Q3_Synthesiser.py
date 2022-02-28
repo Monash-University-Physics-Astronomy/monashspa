@@ -66,6 +66,8 @@ ax1.plot(x,y)
 ax1.set_xlabel('Sample number')
 ax1.set_title('Total wave')
 
+fig.suptitle('Synthesised waveforms')
+
 # save the plot
 plt.savefig('part2_sine_waves.pdf')
 
@@ -108,6 +110,8 @@ ax1.set_title('Switch-on function')
 ax2.plot(sample_number[first_sample:last_sample],windowed[first_sample:last_sample])
 ax2.set_xlabel('Sample number')
 ax2.set_title('Total waveform')
+
+fig.suptitle('Windowing waveforms')
 
 plt.savefig('part2_total_waveform.pdf')
 

@@ -69,6 +69,8 @@ ax1.plot(x,y)
 ax1.set_xlabel('Sample number')
 ax1.set_title('Right channel')
 
+fig.suptitle('Recorded waveforms')
+
 plt.savefig('part1_waveform.pdf')
 
 # ------------------------------------------------------------------------------
