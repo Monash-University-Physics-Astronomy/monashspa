@@ -71,7 +71,7 @@ ax1.set_title('Right channel')
 
 fig.suptitle('Recorded waveforms')
 
-plt.savefig('part1_waveform.pdf')
+plt.savefig('part1_waveform.png')
 
 # ------------------------------------------------------------------------------
 # In order to work out what freqencies are present we must do a fourier transform. 
@@ -105,7 +105,7 @@ ax0.set_title('Fourier transfrom of recorded waveform')
 ## Pick which range of frequencies to plot
 ax0.set_xlim([0, 1000])
 cursor = Cursor(ax0, color='green', linewidth=1)
-plt.savefig('part1_spectrum.pdf')
+plt.savefig('part1_spectrum.png')
 
 ## Show the plots to see them interactively
 plt.show()

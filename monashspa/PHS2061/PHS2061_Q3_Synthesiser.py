@@ -26,7 +26,7 @@ sample_rate = 44100
 duration_s = 5
 
 ## Create a list of sine waves to add together 
-## Each one has an ampltude, frequency (Hz) and phase (radians)
+## Each one has an amplitude, frequency (Hz) and phase (radians)
 wave_properties = [
     (0.4, 100.0, 0.0),
     (0.1, 200.0, np.pi/2.0),
@@ -69,7 +69,7 @@ ax1.set_title('Total wave')
 fig.suptitle('Synthesised waveforms')
 
 # save the plot
-plt.savefig('part2_sine_waves.pdf')
+plt.savefig('part2_sine_waves.png')
 
 ## Save the sample and see what it sounds like!
 scipy.io.wavfile.write("waveform_unwindowed.wav", sample_rate, total)
@@ -89,7 +89,7 @@ decay_shape = np.exp(-sample_number/(decay_time*sample_rate) )
 attack_time = 0.01 ## seconds 
 attack_shape = 1-np.exp(-sample_number/(attack_time*sample_rate) )
 
-windowed = np.multiply(total,np.multiply(decay_shape,attack_shape))
+windowed = total*decay_shape*attack_shape
 
 ## We can plot a reduced range if we want to zoom in 
 first_sample = 0
@@ -113,7 +113,7 @@ ax2.set_title('Total waveform')
 
 fig.suptitle('Windowing waveforms')
 
-plt.savefig('part2_total_waveform.pdf')
+plt.savefig('part2_total_waveform.png')
 
 # ------------------------------------------------------------------------------
 # Now we can save our function as an audio file and listen to it.
@@ -154,12 +154,8 @@ ax0.set_title('Fourier transfrom of synthesised waveform')
 ## Pick which range of frequencies to plot
 ax0.set_xlim([0, 1000])
 cursor = Cursor(ax0, color='green', linewidth=1)
-plt.savefig('part2_spectrum.pdf')
+plt.savefig('part2_spectrum.png')
 
 ## Show the plots to see them interactively
 plt.show()
-
-
-
-
 
