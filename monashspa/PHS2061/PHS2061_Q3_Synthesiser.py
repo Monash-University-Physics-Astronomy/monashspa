@@ -72,8 +72,8 @@ fig.suptitle('Synthesised waveforms')
 plt.savefig('part2_sine_waves.png')
 
 ## Save the sample and see what it sounds like!
-scipy.io.wavfile.write("waveform_unwindowed.wav", sample_rate, total)
-
+max_amplutide = np.iinfo(np.int32).max
+scipy.io.wavfile.write("waveform_unwindowed.wav", sample_rate, (max_amplutide*total).astype(np.int32))
 # ------------------------------------------------------------------------------
 # To make the wave sound more like the guitar string, we can multiple it be an
 # envelope function to mimic how it moves when we pluck the string, and as the 
@@ -120,7 +120,7 @@ plt.savefig('part2_total_waveform.png')
 # ------------------------------------------------------------------------------
 
 ## Save the sample and see what it sounds like!
-scipy.io.wavfile.write("waveform_windowed.wav", sample_rate, windowed)
+scipy.io.wavfile.write("waveform_windowed.wav", sample_rate, (max_amplutide*windowed).astype(np.int32) )
 
 ## Either open the file above in an audio player or play directly in the notebook
 # Audio(windowed, rate=sample_rate) 
