@@ -114,12 +114,6 @@ setup(
         'importlib-metadata>=4.8;python_version<"3.8"',
         'sympy',
     ],
-    extras_require={
-        'PHS3302': [
-            'tensorflow',
-            'sklearn',
-        ]
-    },
     data_files=[
         ('monashspa/PHS2061', [ 'monashspa/PHS2061/PHS20x1UncertaintiesData.csv',
                                 'monashspa/PHS2061/PHS2061_Q3_Guitar_Pluck.wav',
@@ -136,9 +130,6 @@ setup(
         ]),
         ('monashspa/PHS3302/calorimeter', ['monashspa/PHS3302/calorimeter/calorimeter.py',
                                            'monashspa/PHS3302/calorimeter/calorimeter.ipynb',
-        ]),
-        ('monashspa/PHS3302/selection', ['monashspa/PHS3302/selection/selection.py',
-                                         'monashspa/PHS3302/selection/selection.ipynb',
         ]),
     ]
 )
