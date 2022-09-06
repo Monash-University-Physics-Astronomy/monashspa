@@ -11,8 +11,6 @@
 # 
 # The data sample we will use for this assignment was taken by the LHCb experiment using collisions between two beams of protons. We will only look at a very small fraction of the total sample. When the $D^0$ mesons are produced at the LHC they will be traveling relativistically. As a result of time-dilation the distance they typically travel before decaying can be as much as a few millimeters even though their life time is on the order of picoseconds. Most particles produced in proton-proton collisions are emitted directly from the point of the collision (primary vertex), therefore we can use the position of the $D^{0}$ decay (secondary vertex) to help disentagle them from the many other particles produced in the collision.
 # 
-# Include picture of PV and SV.
-# 
 # Notes:
 # - All momentums are given in units of ${\rm MeV}$ and distances in $\rm mm$.
 # 
