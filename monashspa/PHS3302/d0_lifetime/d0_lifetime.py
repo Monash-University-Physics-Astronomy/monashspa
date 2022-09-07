@@ -26,7 +26,6 @@
 # - the position of the $D^0$ decay (secondary vertex).
 
 
-
 import monashspa
 import uproot4 as uproot
 import matplotlib.pyplot as plt
@@ -36,7 +35,6 @@ from monashspa.common.download_gdrive import download_file_from_google_drive
 
 ## define constants
 const_c  = 2.99792e8 * 1e3 * 1e-12 ## in units mm/ps
-
 
 
 
@@ -67,37 +65,31 @@ PV_X = tree["D0_OWNPV_X"].array(library="np")
 PV_Y = tree["D0_OWNPV_Y"].array(library="np")
 PV_Z = tree["D0_OWNPV_Z"].array(library="np")
 
+## Calculate transverse momentum
+K_PT  = np.sqrt(K_PX**2 +K_PY**2)
+Pi_PT = np.sqrt(Pi_PX**2+Pi_PY**2)
 
 
 
 ## Lets try plotting the momentum of the kaon and pion
-fig, ax = plt.subplots(2, 3,figsize=(10,5))
-ax[0,0].hist(K_PX,bins=100,label="K_PX")
-ax[0,0].set_xlabel('$p_{x}(K^-)$ [MeV]')
+fig, ax = plt.subplots(2, 2,figsize=(8,5))
+ax[0,0].hist(K_PT,bins=100,label="K_PT")
+ax[0,0].set_xlabel('$p_{T}(K^-)$ [MeV]')
 ax[0,0].set_ylabel('Candidates')
 
-ax[0,1].hist(K_PY,bins=100)
-ax[0,1].set_xlabel('$p_{y}(K^-)$ [MeV]')
+ax[0,1].hist(K_PZ,bins=100)
+ax[0,1].set_xlabel('$p_{z}(K^-)$ [MeV]')
 ax[0,1].set_ylabel('Candidates')
 
-ax[0,2].hist(K_PZ,bins=100)
-ax[0,2].set_xlabel('$p_{z}(K^-)$ [MeV]')
-ax[0,2].set_ylabel('Candidates')
-
-ax[1,0].hist(Pi_PX,bins=100)
-ax[1,0].set_xlabel('$p_{x}(\pi^+)$ [MeV]')
+ax[1,0].hist(Pi_PT,bins=100)
+ax[1,0].set_xlabel('$p_{T}(\pi^+)$ [MeV]')
 ax[1,0].set_ylabel('Candidates')
 
-ax[1,1].hist(Pi_PY,bins=100)
-ax[1,1].set_xlabel('$p_{y}(\pi^+)$ [MeV]')
+ax[1,1].hist(Pi_PZ,bins=100)
+ax[1,1].set_xlabel('$p_{z}(\pi^+)$ [MeV]')
 ax[1,1].set_ylabel('Candidates')
-
-ax[1,2].hist(Pi_PZ,bins=100)
-ax[1,2].set_xlabel('$p_{z}(\pi^+)$ [MeV]')
-ax[1,2].set_ylabel('Candidates')
 plt.tight_layout()
 plt.show()
-
 
 
 
@@ -140,17 +132,12 @@ plt.show()
 # $$
 # \vec{\mathbf{p}} = (p_{x},p_{y},p_{z})
 # $$
-# We need the 4-momenta, which means adding the energy of the particles as well. At the LHCb experiment we don't measure the particle energy directly. Instead we use particle identification detectors to determine what type of particle the various the long-lived particles are (e.g. kaons or pions) and use the externally measured values of their masses and our measured momentums to compute the energy using 
-# $$
-# E^2 = |\vec{\mathbf{p}}|^2 + m^2
-# $$
-# 
-# Values of the pion and kaon masses have been measured elswhere:
+# We need the 4-momenta, which means adding the energy of the particles as well. At the LHCb experiment we don't measure the particle energy directly. Instead we use particle identification detectors to determine what type of particle the various the long-lived particles are (e.g. kaons or pions) and use the externally measured values of their masses and our measured momentums to compute the energy.
+# Values of the pion and kaon masses have been measured elsewhere:
 # - $m(\pi) = 139.6\,{\rm MeV}/c^{2}$
 # - $m(K) = 493.7\,{\rm MeV}/c^{2}$ 
 # 
-# **Task 1:** *[2 marks]* Using the example below, create a new variable called `K_E` and `Pi_E` in which you calculate the pion and kaon energies from the 3-momenta and their known masses.
-
+# **Task 1:** *[2 marks]* Create new variables called `K_E` and `Pi_E` in which you calculate the pion and kaon energies from the 3-momenta and their known masses.
 
 
 # Pi_E = 
@@ -167,24 +154,13 @@ plt.show()
 # $$
 # we can use these to calculate the mass of the $D^0$ meson candidate. 
 # 
-# 
-# The mass can be calculated from the sum of the momentum 4-vectors for the kaon and pion 
-# $$
-# \mathbf{p}_{D^{0}} = \mathbf{p}_{K} + \mathbf{p}_{\pi},
-# $$
-# 
-# In the rest frame of the $D^0$ meson we will have $\mathbf{p}_{D^0} = \left[m_{D^0},0,0,0\right]$
-# $$
-# m_{D^{0}}^2 = \mathbf{p}_{D^{0}}.\mathbf{p}_{D^{0}} = (\mathbf{p}_{K} + \mathbf{p}_{\pi})^2.
-# $$
 # **Task 2:** *[2 marks]* Calculate the $D^0$ mass using the all of the components of the kaon and pion 4-momentum. 
-
 
 
 ## D0_M = 
 
 
-# A loose selection has already been applied to the sample we are analysing. This means that the signal contains both real $D^0\to K \pi$ decays as well as backgrounds from combinations of a kaon and pion that didn't originate from a $D^0$ meson. 
+# Our sample contains both real $D^0\to K \pi$ decays as well as backgrounds from combinations of a kaon and pion that didn't originate from a $D^0$ meson. A loose set of requirements have already been applied to the sample we are analysing to reduce the number of background candidates, whilst keeping most of the real $D^0\to K \pi$ decays.
 # These two different contributions will be easy to see if you've calculated the $D^0$ mass correctly. Hint: the mass of the $D^0$ meson is $1864.84\pm0.05\,{\rm MeV}/c^2$. 
 # 
 # **Task 3:** *[2 marks]* Create a histogram of the $D^0$ mass.
@@ -204,9 +180,7 @@ plt.show()
 # **Task 4:** *[4 marks]* Calculate and plot a histgram of the absolute distance $|\Delta\vec{x}|$ between the primary vertex (proton-proton collision) and secondary vertex ($D^0$ decay).
 
 
-
 # D0_L = 
-
 
 
 
@@ -221,27 +195,20 @@ plt.show()
 # We must account for special relativity when trying to determine the lifetime of the $D^0$ meson. We can rewrite this equation using relations between the momentum and velocity, and between lab frame time and proper time:
 # 
 # $$
-# \vec{\mathbf{p}} = \gamma m \vec{\mathbf{v}}\\
+# \vec{\mathbf{p}} = \gamma m \vec{\mathbf{v}}
+# $$
+# 
+# $$
 # t = \gamma \tau.
 # $$
 # 
-# From this we find: 
-# $$
-# \Delta\vec{\mathbf{x}} = \frac{\vec{\mathbf{p}}}{\gamma m} \gamma \tau = \tau\frac{ \vec{ \mathbf{p}}}{m}
-# $$
-# Multiplying both sides by $\vec{\mathbf{p}}$ and rearranging gives
-# $$
-#  \tau  = \frac{m}{|p^2|} \vec{\mathbf{p}}.\Delta\vec{\mathbf{x}}.
-# $$
+# **Task 5** *[2 marks]* Derive an experession for the decay time $\tau$ in terms of $\Delta\vec{\mathbf{x}}$, $\vec{\mathbf{p}}$, and $m$.
 # 
 # If we use $\vec{\mathbf{p}}$ in units of $[{\rm MeV}]$, $m$ in units of $[{\rm MeV}]$ and $\Delta\vec{\mathbf{x}}$ in units of $[\rm mm]$, the proper time $\tau$ will be calculated in units of $[\rm mm]$ (i.e. it's actually a length. This is because we are using natural units for the momentum and mass but SI units for the positions). 
 # 
 # We can convert $[\rm mm]$ into $[\rm ps]$ by dividing  by the speed of light in units of $[\rm mm \,ps^{-1}]$ (given at the top of the script).
 
-# *Aside:* this method is of determining the lifetime is only approxmate. This is because the particles travel through a magnetic field which bends their trajectory, allowing us to measure their momentum. As a result, the momentum 3-vectors of the kaons and pions point in a slightly different direction depending on where we are measuring them. However, the momenta we used to find the vertex assumed the kaon and pion originated at the proton-proton interaction, which we don't expect to be true! Therefore finding the best estimate of the decay time requires iteratively changing the decay position and recalculating the momentum until the values converge.    
-
-# **Task 5** *[5 marks]* Calculate and plot a histgram of the proper time $\tau$ in units of picoseconds. *Hint: you'll need to create arrays containing the $D^0$ total momentum and $p_{x}$, $p_{y}$ and $p_{z}$ components.*
-
+# **Task 6** *[5 marks]* Calculate and plot a histgram of the proper time $\tau$ in units of picoseconds. *Hint: you'll need to create arrays containing the $D^0$ total momentum and $p_{x}$, $p_{y}$ and $p_{z}$ components.*
 
 
 # Calculate tau [ps]
@@ -265,7 +232,6 @@ plt.show()
 # 
 
 
-
 ## Example of using masks to only plot a subset of data
 
 if False:
@@ -276,7 +242,7 @@ if False:
 
     fig, ax = plt.subplots(1,2,figsize=(10,5))
 
-    ## We must use the sane range for both so the correct values are subtracted
+    ## We must use the same range for both so the correct values are subtracted
     hist_sig = ax[0].hist(D0_PY[signal_mask] ,    bins=50, range = (-20000,20000)) 
     hist_bkg = ax[0].hist(D0_PY[background_mask] ,bins=50, range = (-20000,20000))
     ax[0].set_yscale('log')
@@ -302,8 +268,7 @@ if False:
 
 
 # 
-# **Task 6** *[5 marks]* Plot histograms of the $D^0$ decay time in the signal and background-only regions. Take the difference between the histograms to create the background-subtracted decaytime distribution. 
-
+# **Task 7** *[5 marks]* Plot histograms of the $D^0$ decay time in the signal and background-only regions. Take the difference between the histograms to create the background-subtracted decaytime distribution. 
 
 
 ## Define signal and background masks
@@ -327,9 +292,8 @@ if False:
 # - What range of decay times should you include in you histogram?
 # - Why might the distribution not look purely exponential at small decay times? 
 # 
-# **Task 7** *[5 marks]* Fit your decay time distribution to determine an estimate for the $D^0$ meson lifetime and an error. How does this compare to the known values? Use the [Particle Data Group](https://pdglive.lbl.gov/) value as a reference. What systematic sources of uncertainty might contribute in addition to the statistical uncertainty on your measurement?
+# **Task 8** *[5 marks]* Fit your decay time distribution to determine an estimate for the $D^0$ meson lifetime and an error. How does this compare to the known values? Use the [Particle Data Group](https://pdglive.lbl.gov/) value as a reference. What systematic sources of uncertainty might contribute in addition to the statistical uncertainty on your measurement?
 # 
-
 
 
 from lmfit import fit_report
@@ -402,7 +366,6 @@ if False:
     fig.suptitle('Fit with {name}'.format(name=name))
 
     plt.show()
-
 
 
 
