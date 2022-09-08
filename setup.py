@@ -113,6 +113,7 @@ setup(
         'h5py',
         'importlib-metadata>=4.8;python_version<"3.8"',
         'sympy',
+        'uproot4',
     ],
     data_files=[
         ('monashspa/PHS2061', [ 'monashspa/PHS2061/PHS20x1UncertaintiesData.csv',
@@ -130,6 +131,9 @@ setup(
         ]),
         ('monashspa/PHS3302/calorimeter', ['monashspa/PHS3302/calorimeter/calorimeter.py',
                                            'monashspa/PHS3302/calorimeter/calorimeter.ipynb',
+        ]),
+        ('monashspa/PHS3302/d0_lifetime', ['monashspa/PHS3302/d0_lifetime/d0_lifetime.py',
+                                           'monashspa/PHS3302/d0_lifetime/d0_lifetime.ipynb',
         ]),
     ]
 )
