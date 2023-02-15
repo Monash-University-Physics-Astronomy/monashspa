@@ -33,7 +33,7 @@ def trap_k_theory(r, w, alpha, eccentricity, I):
 
     Calculates using the equation:
         :math:`k=\alpha\,I_0\,\omega\,\frac{2\,\pi\,\epsilon^3}{c\,\xi^3}\left(\sqrt{\frac{\pi}{2}}\,\left(\left(\frac{\xi\,a}{\epsilon}\right)^2-1\right)\,\mathrm{exp}\left[-\frac{a^2}{2}\right]\,\mathrm{erf}\left[\frac{\xi\,a}{\sqrt{2}\,\epsilon}\right]+\frac{\xi\,a}{\epsilon}\,\mathrm{exp}\left[-\frac{a^2}{2\,\epsilon^2}\right]\right)`
-    from `Bechhoefer 2002`_.
+    from `Bechhoefer 2002`_. Corrects for the differing definition of beam waist between Bechhoefer and the laser optics standard.  
 
     If the input arguments are numpy arrays, then the output will also be an
     array of the appropriate dimension. Otherwise a single number will be 
@@ -66,7 +66,7 @@ def trap_k_theory(r, w, alpha, eccentricity, I):
     c = 299792458
 
     # calculate k
-    k = alpha/c*I*w*2*np.pi*eccentricity**3/xi**3*(
+    k = sqrt(alpha)/4*alpha/c*I*w*2*np.pi*eccentricity**3/xi**3*(
             np.sqrt(np.pi/2)*((xi*a/eccentricity)**2-1)*np.exp(-a**2/2)*scipy.special.erf(xi*a/(np.sqrt(2)*eccentricity)) 
             + (xi*a/eccentricity)*np.exp(-a**2/(2*eccentricity**2))
         )
