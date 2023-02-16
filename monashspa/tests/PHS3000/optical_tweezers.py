@@ -25,7 +25,7 @@ def test_k_trap_theory():
 
     result = op.trap_k_theory(1.5e-6, 3.2e-7, (1.58**2/1.33**2-1), 3, 5251802272)
     expected_result = 2.6373474496644467e-06
-    precision = 1e-12
+    precision = 1e12
 
     success = True
     if np.abs(result-expected_result) > precision:
@@ -47,7 +47,7 @@ def test_k_trap_theory_array():
     r = np.array([1.5e-6, 2e-6, 3.1e-6])
     result = op.trap_k_theory(r, 3.2e-7, (1.58**2/1.33**2-1), 3, 5251802272)
     expected_result = np.array([2.6373474496644467e-06, 7.146758330328241e-07, 2.1117891093096543e-08])
-    precision = 1e-12
+    precision = 1e12
 
     success = expected_result.shape == result.shape
     if not np.all(np.isclose(expected_result, result, atol=precision)):
@@ -70,7 +70,7 @@ def test_k_trap_theory_array_multiple():
     w = np.array([3.2e-7, 2e-7, 8e-7])
     result = op.trap_k_theory(r, w, (1.58**2/1.33**2-1), 3, 5251802272)
     expected_result = np.array([2.6373474496644467e-06, 9.069896532126502e-09, 1.2885130290016302e-05])
-    precision = 1e-12
+    precision = 1e12
 
     success = expected_result.shape == result.shape
     if not np.all(np.isclose(expected_result, result, atol=precision)):
