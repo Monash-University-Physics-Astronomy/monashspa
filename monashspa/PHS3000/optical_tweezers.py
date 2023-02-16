@@ -66,7 +66,7 @@ def trap_k_theory(r, w, alpha, eccentricity, I):
     c = 299792458
 
     # calculate k
-    k = np.sqrt(alpha)/4*alpha/c*I*w*2*np.pi*eccentricity**3/xi**3*(
+    k = alpha/c*I*w*2*np.pi*eccentricity**3/xi**3*(
             np.sqrt(np.pi/2)*((xi*a/eccentricity)**2-1)*np.exp(-a**2/2)*scipy.special.erf(xi*a/(np.sqrt(2)*eccentricity)) 
             + (xi*a/eccentricity)*np.exp(-a**2/(2*eccentricity**2))
         )
