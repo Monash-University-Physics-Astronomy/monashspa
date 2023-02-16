@@ -8,4 +8,5 @@ Documentation, along with installation instructions, are available at [http://mo
 monashspa is licensed under the GPLv3 licence.
 
 ## Contributing
-Please see [contributing.md](https://github.com/Monash-University-Physics-Astronomy/monashspa/blob/master/contributing.md)
+Please see [contributing.md](https://github.com/Monash-University-Physics-Astronomy/monashspa/blob/master/contributing.md). For making a subsequent release
+see [release.md](https://github.com/Monash-University-Physics-Astronomy/monashspa/blob/master/release.md)
