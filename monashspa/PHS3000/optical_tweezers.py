@@ -27,6 +27,9 @@ import scipy.special
 
 from monashspa.PHS3000 import linear_fit as __linear_fit
 from monashspa.common.fitting import MonashSPAFittingException as __MonashSPAFittingException
+from monashspa.PHS3000 import make_lmfit_model as __make_lmfit_model
+from monashspa.PHS3000 import model_fit as __model_fit
+from monashspa.PHS3000 import get_fit_parameters as __get_fit_parameters
 
 def corner_freq(f, ps, initial_fc):
     r"""Finds the corner frequency value for a lorentzian power spectrum
@@ -62,7 +65,7 @@ def corner_freq(f, ps, initial_fc):
     
     
     # fitting model
-    lorentzian = spa.make_lmfit_model("a/(x**2+fc**2)")
+    lorentzian = spa.__make_lmfit_model("a/(x**2+fc**2)")
     
     # Establish a guess for the parameters being fitted
     lorentzian_params = lorentzian.make_params(a=y[1]*initial_fc**2,fc=initial_fc)
@@ -73,13 +76,13 @@ def corner_freq(f, ps, initial_fc):
     
     
     # fitting
-    fit_results = spa.model_fit(lorentzian,lorentzian_params,ff,y)
+    fit_results = spa.__model_fit(lorentzian,lorentzian_params,ff,y)
     
     # calculate line of best fit
     fitted_lorentzian=fit_results.best_fit*max_y   # correct for normalisation
     
     #get parameters
-    fit_parameters=spa.get_fit_parameters(fit_results)
+    fit_parameters=spa.__get_fit_parameters(fit_results)
     fc_val =fit_parameters["fc"]
     u_fc=fit_parameters["u_fc"]
     
