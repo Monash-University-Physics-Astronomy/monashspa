@@ -45,8 +45,8 @@ def corner_freq(f, ps, initial_fc):
    
     
     Returns:
-    an array :code:`(:math:`f_c`, :math:`uf_c`)` where :code:`f` is a 1D numpy array
-        containing the best estimate for the corner frequency :math:`f_c` and the uncertainty in the corner frequency :math:`uf_c`.
+    a 1D numpy array :math:`f_c`, :math:`uf_c` which contains
+        the best estimate for the corner frequency :math:`f_c` and the uncertainty in the corner frequency :math:`uf_c`.
     """
 
 
