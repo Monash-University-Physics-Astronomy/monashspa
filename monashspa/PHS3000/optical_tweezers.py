@@ -65,7 +65,7 @@ def corner_freq(f, ps, initial_fc):
     
     
     # fitting model
-    lorentzian = spa.__make_lmfit_model("a/(x**2+fc**2)")
+    lorentzian = __make_lmfit_model("a/(x**2+fc**2)")
     
     # Establish a guess for the parameters being fitted
     lorentzian_params = lorentzian.make_params(a=y[1]*initial_fc**2,fc=initial_fc)
@@ -76,13 +76,13 @@ def corner_freq(f, ps, initial_fc):
     
     
     # fitting
-    fit_results = spa.__model_fit(lorentzian,lorentzian_params,ff,y)
+    fit_results = __model_fit(lorentzian,lorentzian_params,ff,y)
     
     # calculate line of best fit
     fitted_lorentzian=fit_results.best_fit*max_y   # correct for normalisation
     
     #get parameters
-    fit_parameters=spa.__get_fit_parameters(fit_results)
+    fit_parameters = __get_fit_parameters(fit_results)
     fc_val =fit_parameters["fc"]
     u_fc=fit_parameters["u_fc"]
     
