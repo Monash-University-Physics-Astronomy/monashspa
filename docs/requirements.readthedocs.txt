@@ -1,8 +1,13 @@
 numpy>=1.15
-lmfit>=0.9.12,<1.0
+lmfit>=1.0,<2
 requests>=2.21.0,<3
 colorama>=0.4.1,<1
-pandas>=0.24,<1
-six
+pandas>=1.0,<2
+scipy>=1.4.1,<2
 piradon
-docutils<0.18
+matplotlib
+h5py
+importlib-metadata
+sympy
+uproot4
+docutils
