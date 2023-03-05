@@ -27,14 +27,85 @@ import scipy.special
 
 from monashspa.PHS3000 import linear_fit as __linear_fit
 from monashspa.common.fitting import MonashSPAFittingException as __MonashSPAFittingException
+from monashspa.PHS3000 import make_lmfit_model as __make_lmfit_model
+from monashspa.PHS3000 import model_fit as __model_fit
+from monashspa.PHS3000 import get_fit_parameters as __get_fit_parameters
+
+def corner_freq(f, ps, initial_fc):
+    r"""Finds the corner frequency value for a lorentzian power spectrum
+    
+    Finds the corner frequency (:math:`f_c`) of a power spectrum of the form:
+        :math:`y=\frac{a}{(f_c^2+f^2)}` by nonlinear fitting.
+    Arguments:
+        f: A 1D numpy array containing the frequency values associated with 
+            the power spectrum
+        ps: A 1D numpy array containing the power spectrum data (must be the
+            same length as :code:`f`)
+        initial_fc: An initial guess for the corner frequency
+   
+    
+    Returns:
+    a 1D numpy array (:math:`f_c`, :math:`uf_c`) which contains
+        the best estimate for the corner frequency :math:`f_c` and the uncertainty in the corner frequency :math:`uf_c`.
+    """
+
+
+    # import matplotlib.pyplot as plt
+    # import monashspa.PHS3000 as spa
+   
+    
+    # remove first 2 terms due to potential signal offset from zero
+    y = ps[2:]
+    ff = f[2:]
+   
+        
+    #precondition data for fitting
+    max_y=max(y);
+    y=y/max_y;  # normalise for fitting. Fitting doesn't like small numbers!
+    
+    
+    # fitting model
+    lorentzian = __make_lmfit_model("a/(x**2+fc**2)")
+    
+    # Establish a guess for the parameters being fitted
+    lorentzian_params = lorentzian.make_params(a=y[1]*initial_fc**2,fc=initial_fc)
+    
+    # limit the parameter search to positve values
+    lorentzian_params.add('a', value=y[1]*initial_fc**2, min=0)
+    lorentzian_params.add('fc',value=initial_fc, min=0)
+    
+    
+    # fitting
+    fit_results = __model_fit(lorentzian,lorentzian_params,ff,y)
+    
+    # calculate line of best fit
+    fitted_lorentzian=fit_results.best_fit*max_y   # correct for normalisation
+    
+    #get parameters
+    fit_parameters = __get_fit_parameters(fit_results)
+    fc_val =fit_parameters["fc"]
+    u_fc=fit_parameters["u_fc"]
+    
+    #plotting
+    plt.close(1)
+    plt.figure(1)
+    plt.loglog(ff, y*max_y, label='data')   # correct for normalisation
+    plt.loglog(ff,fitted_lorentzian, label='fit')
+    plt.title('Power Spectrum Analysis')
+    plt.xlabel('Frequency (Hz)')
+    plt.ylabel(r'Power Spectral Density ($V^2$/Hz)')
+    plt.legend()
+    plt.show()
+   
+    return fc_val, u_fc
 
 def trap_k_theory(r, w, alpha, eccentricity, I):
     r"""Calculates the theoretical spring constant (:math:`k`) for an optical tweezers trap for specified parameters
 
     Calculates using the equation:
         :math:`k=\alpha\,I_0\,\omega\,\frac{2\,\pi\,\epsilon^3}{c\,\xi^3}\left(\sqrt{\frac{\pi}{2}}\,\left(\left(\frac{\xi\,a}{\epsilon}\right)^2-1\right)\,\mathrm{exp}\left[-\frac{a^2}{2}\right]\,\mathrm{erf}\left[\frac{\xi\,a}{\sqrt{2}\,\epsilon}\right]+\frac{\xi\,a}{\epsilon}\,\mathrm{exp}\left[-\frac{a^2}{2\,\epsilon^2}\right]\right)`
-    from `Bechhoefer 2002`_.
-
+    from `Bechhoefer 2002`. Corrects for the difference in definition of beam waist between Bechhoefer and standard laser literature_. 
+    
     If the input arguments are numpy arrays, then the output will also be an
     array of the appropriate dimension. Otherwise a single number will be 
     returned.
@@ -66,7 +137,7 @@ def trap_k_theory(r, w, alpha, eccentricity, I):
     c = 299792458
 
     # calculate k
-    k = alpha/c*I*w*2*np.pi*eccentricity**3/xi**3*(
+    k = np.sqrt(alpha)/4*alpha/c*I*w*2*np.pi*eccentricity**3/xi**3*(
             np.sqrt(np.pi/2)*((xi*a/eccentricity)**2-1)*np.exp(-a**2/2)*scipy.special.erf(xi*a/(np.sqrt(2)*eccentricity)) 
             + (xi*a/eccentricity)*np.exp(-a**2/(2*eccentricity**2))
         )

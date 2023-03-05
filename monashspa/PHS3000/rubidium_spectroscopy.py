@@ -19,15 +19,10 @@ import os
 
 import numpy as np
 import pandas
-import six
 
 def __matlab_round(val):
-    if six.PY2:
-        return round(val)
-    else:
-        import decimal
-        return int(decimal.Decimal(val).quantize(decimal.Decimal('1'), 
-    rounding=decimal.ROUND_HALF_UP))
+    import decimal
+    return int(decimal.Decimal(val).quantize(decimal.Decimal('1'), rounding=decimal.ROUND_HALF_UP))
 
 def read_rigol_csv(filepath):
     """Reads the csv file saved from the Rigol digital storage oscilloscope.

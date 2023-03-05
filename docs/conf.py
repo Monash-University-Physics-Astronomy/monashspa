@@ -55,7 +55,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'monashspa'
-copyright = '2019, School of Physics & Astronomy, Monash University'
+copyright = '2023, School of Physics & Astronomy, Monash University'
 author = 'School of Physics & Astronomy, Monash University'
 
 # The version info for the project you're documenting, acts as replacement for

@@ -152,4 +152,4 @@ if False:
 
 # 2 marks. Simulate data with both noise and mis-calibration
 # 2 marks: Fit the simulated data
-# 2 marks: Interpret results
+# 3 marks: Interpret results by discussing the shape of the graphs and commenting on the fit.
