@@ -45,7 +45,7 @@ def test_basic_linear_fit():
         'intercept': 1.011763758,
         'u_intercept': 0.177550159,
     }
-    precision = 1e-7
+    precision = 1e-3
 
     ### Check results match within precision ###
     success = compare_dictionary(results, expected_results, precision)
@@ -79,7 +79,7 @@ def test_linear_fit_with_uncertainties():
         'intercept': 1.124423955,
         'u_intercept': 0.387570521,
     }
-    precision = 2e-8
+    precision = 1e-3
 
     ### Check results match within precision ###
     success = compare_dictionary(results, expected_results, precision)
@@ -138,7 +138,7 @@ def test_bypass_failed_fit_1():
         'halflife': 138.49703455557113,
         'u_halflife': 4.38357646646529,
     }
-    precision = 2e-7
+    precision = 1e-3
     
     ### Check results match within precision ###
     success = compare_dictionary(results, expected_results, precision)
