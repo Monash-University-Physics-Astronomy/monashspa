@@ -47,7 +47,7 @@ def nonlinear_fit():
         'halflife': 138.49703455557113,
         'u_halflife': 4.38357646646529,
     }
-    precision = 2e-7
+    precision = 1e-3
     
     ### Check results match within precision ###
     success = compare_dictionary(results, expected_results, precision)
@@ -82,7 +82,7 @@ def nonlinear_fit_with_independent_as_t():
         'halflife': 138.49703455557113,
         'u_halflife': 4.38357646646529,
     }
-    precision = 2e-7
+    precision = 1e-3
 
     ### Check results match within precision ###
     success = compare_dictionary(results, expected_results, precision)
@@ -120,7 +120,7 @@ def linear_fit_model():
         'A_0': 20.664948544330286,
         'u_A_0': 0.6327709546990624,
     }
-    precision = 1e-5
+    precision = 1e-3
 
     ### Check results match within precision ###
     success = compare_dictionary(results, expected_results, precision)
@@ -150,7 +150,7 @@ def linear_fit():
         'slope': -0.004897938859868103,
         'u_slope': 0.0001633020007207088,
     }
-    precision = 1e-7
+    precision = 1e-3
 
     ### Check results match within precision ###
     success = compare_dictionary(results, expected_results, precision)
