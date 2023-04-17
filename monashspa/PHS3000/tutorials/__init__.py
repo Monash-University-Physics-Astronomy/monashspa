@@ -30,4 +30,4 @@ def model_1(r, w, I):
     eccentricity = 1.1
     alpha = 1.25
 
-    return __trap_k_theory(r, w, alpha, eccentricity, I)
+    return __trap_k_theory(r, w, alpha, eccentricity, I)*4/alpha
