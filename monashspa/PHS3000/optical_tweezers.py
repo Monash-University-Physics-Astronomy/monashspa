@@ -31,7 +31,7 @@ from monashspa.PHS3000 import make_lmfit_model as __make_lmfit_model
 from monashspa.PHS3000 import model_fit as __model_fit
 from monashspa.PHS3000 import get_fit_parameters as __get_fit_parameters
 
-def corner_freq(f, ps, initial_fc):
+def corner_freq(f, ps, initial_fc, call_show = True):
     r"""Finds the corner frequency value for a lorentzian power spectrum
     
     Finds the corner frequency (:math:`f_c`) of a power spectrum of the form:
@@ -42,8 +42,15 @@ def corner_freq(f, ps, initial_fc):
         ps: A 1D numpy array containing the power spectrum data (must be the
             same length as :code:`f`)
         initial_fc: An initial guess for the corner frequency
-   
-    
+        
+    Keyword Arguments:
+        call_show: Whether to call :code:`matplotlib.pyplot.show()` at the end
+                   of the function (prior to returning). Defaults to :code:`True`.
+                   Set this to :code:`False` if you are not using Spyder/IPython
+                   and wish your entire script to complete before showing any 
+                   plots. Note, you will need to explicitly call 
+                   :code:`matplotlib.pyplot.show()` if you set this to :code:`False`.
+       
     Returns:
     a 1D numpy array (:math:`f_c`, :math:`uf_c`) which contains
         the best estimate for the corner frequency :math:`f_c` and the uncertainty in the corner frequency :math:`uf_c`.
@@ -87,16 +94,20 @@ def corner_freq(f, ps, initial_fc):
     u_fc=fit_parameters["u_fc"]
     
     #plotting
-    plt.close(1)
-    plt.figure(1)
+    #plt.close(1)
+    #plt.figure(1)
+    
+    plt.figure()
     plt.loglog(ff, y*max_y, label='data')   # correct for normalisation
     plt.loglog(ff,fitted_lorentzian, label='fit')
     plt.title('Power Spectrum Analysis')
     plt.xlabel('Frequency (Hz)')
     plt.ylabel(r'Power Spectral Density ($V^2$/Hz)')
     plt.legend()
-    plt.show()
-   
+    
+    if call_show:
+        plt.show()
+    
     return fc_val, u_fc
 
 def trap_k_theory(r, w, alpha, eccentricity, I):
