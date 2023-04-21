@@ -25,7 +25,7 @@ def model_1(r, w, I):
     r = r*1e-3
     w = w*1e-4
     I = 4/1.11803*I*1e11  #correction for updated trap_k_theory script
-    I=I*3e8/299792458   #speed of light correction
+    I=I*299792458/3e8   #speed of light correction
     
     # set parameters we are not exposing
     eccentricity = 1.1
