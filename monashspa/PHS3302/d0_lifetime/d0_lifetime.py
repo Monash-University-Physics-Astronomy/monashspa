@@ -25,6 +25,8 @@
 # - the position of the proton-proton collision (primary vertex),
 # - the position of the $D^0$ decay (secondary vertex).
 
+# In[1]:
+
 
 import monashspa
 import uproot4 as uproot
@@ -36,6 +38,8 @@ from monashspa.common.download_gdrive import download_file_from_google_drive
 ## define constants
 const_c  = 2.99792e8 * 1e3 * 1e-12 ## in units mm/ps
 
+
+# In[2]:
 
 
 ## Download the data
@@ -70,6 +74,8 @@ K_PT  = np.sqrt(K_PX**2 +K_PY**2)
 Pi_PT = np.sqrt(Pi_PX**2+Pi_PY**2)
 
 
+# In[3]:
+
 
 ## Lets try plotting the momentum of the kaon and pion
 fig, ax = plt.subplots(2, 2,figsize=(8,5))
@@ -91,6 +97,8 @@ ax[1,1].set_ylabel('Candidates')
 plt.tight_layout()
 plt.show()
 
+
+# In[4]:
 
 
 ## plot the position of the D0 production and decay verticies
@@ -137,7 +145,9 @@ plt.show()
 # - $m(\pi) = 139.6\,{\rm MeV}/c^{2}$
 # - $m(K) = 493.7\,{\rm MeV}/c^{2}$ 
 # 
-# **Task 1:** *[2 marks]* Create new variables called `K_E` and `Pi_E` in which you calculate the pion and kaon energies from the 3-momenta and their known masses.
+# <span style="color:red">**Task 1:** *[2 marks]*</span> Create new variables called `K_E` and `Pi_E` in which you calculate the pion and kaon energies from the 3-momenta and their known masses.
+
+# In[5]:
 
 
 # Pi_E = 
@@ -154,7 +164,9 @@ plt.show()
 # $$
 # we can use these to calculate the mass of the $D^0$ meson candidate. 
 # 
-# **Task 2:** *[2 marks]* Calculate the $D^0$ mass using the all of the components of the kaon and pion 4-momentum. 
+# <span style="color:red">**Task 2:** *[2 marks]*</span> Calculate the $D^0$ mass using the all of the components of the kaon and pion 4-momentum. 
+
+# In[6]:
 
 
 ## D0_M = 
@@ -163,8 +175,9 @@ plt.show()
 # Our sample contains both real $D^0\to K \pi$ decays as well as backgrounds from combinations of a kaon and pion that didn't originate from a $D^0$ meson. A loose set of requirements have already been applied to the sample we are analysing to reduce the number of background candidates, whilst keeping most of the real $D^0\to K \pi$ decays.
 # These two different contributions will be easy to see if you've calculated the $D^0$ mass correctly. Hint: the mass of the $D^0$ meson is $1864.84\pm0.05\,{\rm MeV}/c^2$. 
 # 
-# **Task 3:** *[2 marks]* Create a histogram of the $D^0$ mass.
+# <span style="color:red">**Task 3:** *[2 marks]*</span> Create a histogram of the $D^0$ mass.
 
+# In[7]:
 
 
 ## Plot D0_M histogram
@@ -177,11 +190,15 @@ plt.show()
 # $$
 # Note, both the production and decay positions are given in units of $\rm mm$. 
 # 
-# **Task 4:** *[4 marks]* Calculate and plot a histgram of the absolute distance $|\Delta\vec{x}|$ between the primary vertex (proton-proton collision) and secondary vertex ($D^0$ decay).
+# <span style="color:red">**Task 4:** *[4 marks]*</span> Calculate and plot a histgram of the absolute distance $|\Delta\vec{x}|$ between the primary vertex (proton-proton collision) and secondary vertex ($D^0$ decay).
+
+# In[8]:
 
 
 # D0_L = 
 
+
+# In[9]:
 
 
 ## Plot D0_L histogram
@@ -202,13 +219,15 @@ plt.show()
 # t = \gamma \tau.
 # $$
 # 
-# **Task 5** *[2 marks]* Derive an experession for the decay time $\tau$ in terms of $\Delta\vec{\mathbf{x}}$, $\vec{\mathbf{p}}$, and $m$.
+# <span style="color:red">**Task 5** *[2 marks]*</span> Derive an experession for the decay time $\tau$ in terms of $\Delta\vec{\mathbf{x}}$, $\vec{\mathbf{p}}$, and $m$.
 # 
 # If we use $\vec{\mathbf{p}}$ in units of $[{\rm MeV}]$, $m$ in units of $[{\rm MeV}]$ and $\Delta\vec{\mathbf{x}}$ in units of $[\rm mm]$, the proper time $\tau$ will be calculated in units of $[\rm mm]$ (i.e. it's actually a length. This is because we are using natural units for the momentum and mass but SI units for the positions). 
 # 
 # We can convert $[\rm mm]$ into $[\rm ps]$ by dividing  by the speed of light in units of $[\rm mm \,ps^{-1}]$ (given at the top of the script).
 
-# **Task 6** *[5 marks]* Calculate and plot a histgram of the proper time $\tau$ in units of picoseconds. *Hint: you'll need to create arrays containing the $D^0$ total momentum and $p_{x}$, $p_{y}$ and $p_{z}$ components.*
+# <span style="color:red">**Task 6** *[5 marks]*</span> Calculate and plot a histgram of the proper time $\tau$ in units of picoseconds. *Hint: you'll need to create arrays containing the $D^0$ total momentum and $p_{x}$, $p_{y}$ and $p_{z}$ components.*
+
+# In[10]:
 
 
 # Calculate tau [ps]
@@ -230,6 +249,8 @@ plt.show()
 # To plot a histogram of only a subset of the data we can use a mask. 
 # An example is shown below for momentum.
 # 
+
+# In[11]:
 
 
 ## Example of using masks to only plot a subset of data
@@ -268,7 +289,9 @@ if False:
 
 
 # 
-# **Task 7** *[5 marks]* Plot histograms of the $D^0$ decay time in the signal and background-only regions. Take the difference between the histograms to create the background-subtracted decaytime distribution. 
+# <span style="color:red">**Task 7** *[5 marks]*</span> Plot histograms of the $D^0$ decay time in the signal and background-only regions. Take the difference between the histograms to create the background-subtracted decaytime distribution. 
+
+# In[12]:
 
 
 ## Define signal and background masks
@@ -292,8 +315,10 @@ if False:
 # - What range of decay times should you include in you histogram?
 # - Why might the distribution not look purely exponential at small decay times? 
 # 
-# **Task 8** *[5 marks]* Fit your decay time distribution to determine an estimate for the $D^0$ meson lifetime and an error. How does this compare to the known values? Use the [Particle Data Group](https://pdglive.lbl.gov/) value as a reference. What systematic sources of uncertainty might contribute in addition to the statistical uncertainty on your measurement?
+# <span style="color:red">**Task 8** *[5 marks]*</span> Fit your decay time distribution to determine an estimate for the $D^0$ meson lifetime and an error. How does this compare to the known values? Use the [Particle Data Group](https://pdglive.lbl.gov/) value as a reference. What systematic sources of uncertainty might contribute in addition to the statistical uncertainty on your measurement?
 # 
+
+# In[13]:
 
 
 from lmfit import fit_report
@@ -368,6 +393,15 @@ if False:
     plt.show()
 
 
-
-
-
+# ### Part 5: Use the impact parameter to estimate the uncertainty on each measurement
+# In this large part you will need to demonstrate the use of tools that you have used above but without any template code to hep you.
+# 
+# Each measurement of a $D^0$ decay will give us a measurement of the decay time. That is what we then used to fit the overall decay time distribution to give us the lifetime. However, we have ignored that each measurement will in fact have an uncertainty related to it. We will look at the uncertainty in the measurement by looking in a direction perpendicular to the direction of flight.
+# 
+# <span style="color:red">**Task 9** *[5 marks]*</span> For each candidate calculate the projection of the displacement $\Delta \vec{\mathbf{x}}$ on a plane perpendicular to the momentum vector $\vec{\mathbf{p}}$. Using the background subtraction method from above, plot the length of this projected vector for the signal candidates. Why you would expect this to follow a [Rayleigh distribution](https://en.wikipedia.org/wiki/Rayleigh_distribution) where the $\sigma$ parameter gives us the average resolution in the plane transverse to the momentum vector? Make a fit to determine $\sigma$.
+# 
+# <span style="color:red">**Task 10** *[5 marks]*</span> Assuming that the resolution $\sigma$ in the direction parallel to the momentum vector is the same as in the perpendicular direction, try to estimate if the fact that we ignored the resolution could lead to a sign ificant bias in our measurement. 
+# 
+# First, you will need to estimate how big an uncertainty in decay time you get from a given uncertainty in displacement. Using a "typical" momentum should be sufficient for this. From there you can use several methods to answer the question. You might find the [Exponentially modified Gaussian distribution](https://en.wikipedia.org/wiki/Exponentially_modified_Gaussian_distribution) useful and the fact that the mean value of an exponential (starting at $t=0$) is exactly the lifetime. Another method would be to on purpose smear your decay time measurements and then repeat the lifetime fit to look at the impact.
+# 
+# <span style="color:red">Note that you are not asked to exactly determine a possible bias, but simply determine if it might be significant when compared to the statistical uncertainty on the lifetime.</span>
