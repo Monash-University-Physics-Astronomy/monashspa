@@ -100,7 +100,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     install_requires=[
-        'numpy>=1.15',
+        'numpy>=1.15, <2',
         'lmfit>=1.0,<2',
         'requests>=2.21.0,<3',
         'colorama>=0.4.1,<1',
