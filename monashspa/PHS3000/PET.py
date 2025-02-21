@@ -57,7 +57,7 @@ def pet_rebuild(filepath, filter_name=None, npoints=None, call_show=True):
     """
 
     # TODO: consider replacing with our own csv reading wrapper
-    df = pandas.read_csv(filepath, skiprows=1, sep=',\t', engine='python', parse_dates=[0])
+    df = pandas.read_csv(filepath, skiprows=1, sep=',\t', engine='python', parse_dates=[0],date_format='%d/%m/%Y %I:%M:%S %p')
 
     # acquisition_time = df[df.columns[0]].values
     rotations = df[df.columns[1]].values
