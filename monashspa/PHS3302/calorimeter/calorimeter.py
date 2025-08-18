@@ -153,3 +153,23 @@ if False:
 # 2 marks. Simulate data with both noise and mis-calibration
 # 2 marks: Fit the simulated data
 # 3 marks: Interpret results by discussing the shape of the graphs and commenting on the fit.
+
+# Modified calorimeter design
+#
+# Consider a modified design of the calorimeter. You want to improve the resolution of the calorimeter overall. 
+# You are allowed to to change the thickness of the individual layers. While you can make fewer layers, you are not allowed to
+# make more than the current 40 layers of lead and 40 layers of scintillator. The calorimeter should also have
+# the same total thickness as before and have the same amount of lead and scintillator. 
+# Use the same values for noise and calibration as above such that direct comparisons can be made. 
+#
+# 2 marks: Construct a calorimeter with a different layout and demonstrate effect on resolution
+# 2 marks: Interpret the given effect (i.e. why is it worse/better everywhere or at low/high energy, or whatever)
+# 3 marks: Find a layout that improves on the current layout with equal thickness of lead and scintillator everywhere.
+
+# Punch through
+#
+# Now revert to the original layout of the layers. Make an investigation of how high energies the calorimeter can 
+# measure before the resolution is badly affected by punch through  (i.e. when particles are not fully absorbed).
+#
+# 2 marks: Use the analytic results for the shower penetration to esitmate when punch through will start to happen.
+# 2 marks: Experimentally investigate at which energy the punch through will start to happen.
