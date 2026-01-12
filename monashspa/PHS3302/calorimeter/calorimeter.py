@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import random
+import time
 
 import monashspa.PHS3302.calorimeter.model as model
 import matplotlib.pyplot as plt
@@ -20,15 +21,28 @@ scintillator = model.Layer('Scin', 0.01, 0.5, 1.0)
 for i in range(40):
     mycal.add_layers([lead, scintillator])
 
-
-# Run a simulation
-
-
 zcors = mycal.positions()
 
 sim = model.Simulation(mycal)
-ionisations = sim.simulate(model.Electron(0.0, 10.0), 25)
 
+ionisations, cal_with_traces = sim.simulate_with_tracing(model.Electron(0.0, 100.0), deadcellfraction=0.0)
+
+# Draw with particle traces
+fig, ax = plt.subplots(figsize=(14, 6))
+ax = cal_with_traces.draw(ax=ax, show_traces=True)
+plt.tight_layout()
+plt.show()
+
+mycal.reset()
+
+
+# Run a simulation of many particles to get some statistics
+start_time = time.time()
+ionisations = sim.simulate(model.Electron(0.0, 10.0), 250, deadcellfraction=0.0)
+end_time = time.time()
+
+elapsed_time = end_time - start_time
+print(f'Simulation took {elapsed_time/250:.4f} seconds per particle')
 meanionisations = np.mean(ionisations, axis=0)
 rmsionisations = np.std(ionisations, axis=0)
 energies = np.sum(ionisations, axis=1)
